@@ -5,7 +5,7 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
-    "types": ["bun", "bun-test", "@testing-library/jest-dom"],
+    "types": ["bun", "@testing-library/jest-dom"],
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
