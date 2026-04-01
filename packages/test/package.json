@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint src ",
-    "lint:fix": "eslint src --fix",
-    "test": "bun test --watchAll=false",
-    "test:watch": "bun test --watchAll"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test": "bun --bun test --watchAll=false",
+    "test:watch": "bun --bun test --watchAll"
   },
   "dependencies": {
     "@site/test-site": "workspace:*"
