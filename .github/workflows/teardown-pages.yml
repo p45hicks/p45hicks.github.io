@@ -15,5 +15,5 @@ jobs:
     steps:
       - name: Deactivate GitHub Pages
         run: |
-          echo "GitHub Pages deployment deactivated"
-          echo "All previous deployments are now inactive"
+          echo "The GitHub API does not support deleting a Pages deployment."
+          echo "Deactivate it by navigating to the repository's Settings > Pages and clicking 'Unpublish'."
