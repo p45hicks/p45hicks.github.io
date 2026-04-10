@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Paul Hicks",
+    "label": "Developer Practices Consultant",
+    "image": "",
+    "email": "",
+    "phone": "",
+    "url": "",
+    "summary": "",
+    "location": {
+      "address": "",
+      "postalCode": "",
+      "city": "",
+      "countryCode": "",
+      "region": ""
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "paul-hicks-67b9539",
+        "url": "https://www.linkedin.com/in/paul-hicks-67b9539/"
+      }
+    ]
+  },
+  "work": [],
+  "volunteer": [],
+  "education": [],
+  "awards": [],
+  "certificates": [],
+  "publications": [],
+  "skills": [],
+  "languages": [],
+  "interests": [],
+  "references": [
+    {
+      "name": "Wayne Thomson",
+      "reference": "I worked with Paul while he was a developer and then a test lead. He was very successful at both of those roles. His technical ability is excellent and he has a great attention to detail. He was always introducing new ideas and technologies and contributing in many capacities. As a fresh grad I learned a great many things from Paul. Paul is a great asset for any team."
+    },
+    {
+      "name": "Hugh Fitzpatrick",
+      "reference": "Paul is a first rate Innovator.  He is an expert at providing effective, \r\n innovative and timely solutions to very complex problems.\r\n\r\n He is un-phased by challenges, and surpasses expectation. His\r\n knowledge of Computer Science and Engineering is vast and \r\n impressive.\r\n\r\n Paul's contributions and merit are extremely valuable !!!"
+    }
+  ],
+  "projects": [],
+  "meta": {
+    "version": "v1.0.0",
+    "canonical": "https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json"
+  }
+}
+

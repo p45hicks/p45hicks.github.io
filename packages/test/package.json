@@ -1,5 +1,5 @@
 {
-  "name": "@site/test-site",
+  "name": "@paul-hicks-nz/test-site",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -7,9 +7,6 @@
     "lint:fix": "eslint --fix",
     "test": "bun test --watchAll=false",
     "test:watch": "bun test --watchAll"
-  },
-  "dependencies": {
-    "@site/test-site": "workspace:*"
   },
   "devDependencies": {
   }

@@ -1,10 +1,7 @@
-function App() {
-  return (
-    <div>
-      <h1>Welcome to paul-hicks-nz.github.io</h1>
-      <p>Built with React, TypeScript, Vite, and Bun</p>
-    </div>
-  )
-}
+import { CV } from '@paul-hicks-nz/cv/Cv';
 
-export default App
+export default function App(): JSX.Element {
+  return (
+    <CV />
+  );
+}

@@ -23,6 +23,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
   },
-  "include": ["packages/site/**/*.tsx"],
+  "include": ["packages/site/**/*.tsx", "packages/site/resumeHooks.ts", "packages/cv/Cv.tsx", "packages/cv/resumeHooks.tsx"],
   "exclude": ["node_modules", "dist"]
 }
