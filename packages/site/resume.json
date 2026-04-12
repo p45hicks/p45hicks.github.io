@@ -33,76 +33,158 @@
       }
     ]
   },
-  "work": [{
-    "name": "Xero",
-    "position": "Developer Practices Consultant",
-    "url": "https://www.xero.com/nz/",
-    "startDate": "2020-11-01",
-    "endDate": "2022-11-01",
-    "summary": "",
-    "highlights": []
-  }, {
-    "name": "Xero",
-    "position": "Test Lead",
-    "url": "https://www.xero.com/nz/",
-    "startDate": "2018-11-01",
-    "endDate": "2020-10-31",
-    "summary": "",
-    "highlights": []
-  }, {
-    "name": "Xero",
-    "position": "Developer",
-    "url": "https://www.xero.com/nz/",
-    "startDate": "2016-11-01",
-    "endDate": "2018-10-31",
-    "summary": "",
-    "highlights": []
-
-  }],
+  "work": [
+    {
+      "name": "Sentify (formerly IntegrationQA)",
+      "position": "Developer Practices Consultant",
+      "url": "https://sentify.co",
+      "startDate": "2013-12-01",
+      "endDate": "present",
+      "summary": "",
+      "highlights": []
+    },
+    {
+      "name": "EDMI (formerly Energy Intellect)",
+      "position": "Test Lead",
+      "url": "https://www.edmi-meters.com/",
+      "startDate": "2011-05-01",
+      "endDate": "2013-11-31",
+      "summary": "",
+      "highlights": []
+    },
+    {
+      "name": "IBM",
+      "position": "Senior Software Developer",
+      "url": "https://www.ibm.com/",
+      "startDate": "2010-07-01",
+      "endDate": "2011-01-31",
+      "summary": "",
+      "highlights": []
+    },
+    {
+      "name": "Energy Intellect",
+      "position": "Senior Software Developer",
+      "url": "https://www.edmi-meters.com/about/news/edmi-purchase-of-energy-intellect-confirmed/",
+      "startDate": "2005-07-01",
+      "endDate": "2010-04-30",
+      "summary": "EI was a market leader in Smart Grid metering and technologies. I worked on all phases of its iE2 product range, including iBO (entity and market management web application) and Clariti (data presentation web application).",
+      "highlights": [
+        "I was involved in all successful deliveries of both products since their inceptions.",
+        "I developed and continuously enhanced the automated testing of both products, and the pipelines that drove testing and product release"
+      ]
+    },
+    {
+      "name": "Marconi (formerly GE, formerly Fore, formerly Euristix)</sub>",
+      "position": "Lead Software Developer",
+      "url": "https://www.irishtimes.com/business/us-group-pays-58m-to-buy-irish-software-technology-firm-euristix-1.157593",
+      "startDate": "1995-07-01",
+      "endDate": "2002-09-01",
+      "summary": "Consultant network and telecomms software developer",
+      "highlights": [
+        "Progressed from software developer to lead software developer in a fast growing software company specialising in telecommunications software and embedded operating systems. Worked on a wide range of projects and languages, for clients across Europe and the United States.",
+        "Lead development on a SNMP MIB-2 browser (Java)",
+        "Revamped a large codebase for network switches (C++) to eliminate memory faults and add comprehensive exception handling."
+      ]
+    }
+  ],
   "volunteer": [],
-  "education": [{
-    "institution": "Victoria University of Wellington",
-    "url": "https://www.victoria.ac.nz/",
-    "area": "Computer Science and Software Engineering",
-    "studyType": "Bachelor of Science with Honours",
-    "startDate": "2012-02-01",
-    "endDate": "2015-11-30",
-    "score": "",
-    "courses": [
-      "Software Testing",
-      "Software Design",
-      "Cloud Computing",
-      "Microservices",
-      "Containers"
-    ]
+  "education": [
+    {
+      "institution": "University College Dublin",
+      "url": "https://www.ucd.ie/science/",
+      "area": "Computer Science",
+      "studyType": "Masters of Science",
+      "startDate": "1993-10-01",
+      "endDate": "1995-03-30",
+      "courses": [
+        "Networks and Operating Systems",
+        "Software Engineering",
+        "Graphics",
+        "Logic",
+        "Statistics"
+      ]
+    },
+    {
+      "institution": "University College Dublin",
+      "url": "https://www.ucd.ie/science/",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science with Honours",
+      "startDate": "1989-10-01",
+      "endDate": "1993-06-30",
+      "score": "Honours, 2nd class",
+      "courses": [
+        "Networks and Operating Systems",
+        "Software Engineering",
+        "Graphics",
+        "Logic",
+        "Statistics"
+      ]
+    }
+  ],
+  "awards": [{
+    "title": "Bursary - Applied Mathematics",
+    "date": "1989-09-01",
+    "awarder": "National University of Ireland",
+    "summary": "Matriculation bursary for highest score in Applied Mathematics."
   }],
-  "awards": [],
   "certificates": [],
   "publications": [],
-  "skills": [{
-    "name": "Software Development",
-    "level": "",
-    "keywords": ["Testing", "CI/CD", "Software Design"]
-  }, {
-    "name": "Technology",
-    "level": "",
-    "keywords": ["Cloud Computing", "Microservices", "Containers"]
-  }, {
-    "name": "Sports",
-    "level": "",
-    "keywords": ["Cricket", "Rugby", "Football"]
-  }],
+  "skills": [
+    {
+      "name": "Software Development",
+      "level": "",
+      "keywords": [
+        "Testing",
+        "CI/CD",
+        "Software Design"
+      ]
+    },
+    {
+      "name": "Technology",
+      "level": "",
+      "keywords": [
+        "Cloud Computing",
+        "Microservices",
+        "Containers"
+      ]
+    },
+    {
+      "name": "Sports",
+      "level": "",
+      "keywords": [
+        "Cricket",
+        "Rugby",
+        "Football"
+      ]
+    }
+  ],
   "languages": [],
-  "interests": [{
-    "name": "Software Development",
-    "keywords": ["Testing", "CI/CD", "Software Design"]
-  }, {
-    "name": "Technology",
-    "keywords": ["Cloud Computing", "Microservices", "Containers"]
-  }, {
-    "name": "Sports",
-    "keywords": ["Cricket", "Rugby", "Football"]
-  }],
+  "interests": [
+    {
+      "name": "Software Development",
+      "keywords": [
+        "Testing",
+        "CI/CD",
+        "Software Design"
+      ]
+    },
+    {
+      "name": "Technology",
+      "keywords": [
+        "Cloud Computing",
+        "Microservices",
+        "Containers"
+      ]
+    },
+    {
+      "name": "Sports",
+      "keywords": [
+        "Cricket",
+        "Rugby",
+        "Football"
+      ]
+    }
+  ],
   "references": [
     {
       "name": "Wayne Thomson",
@@ -113,17 +195,22 @@
       "reference": "Paul is a first rate Innovator.  He is an expert at providing effective, \r\n innovative and timely solutions to very complex problems.\r\n\r\n He is un-phased by challenges, and surpasses expectation. His\r\n knowledge of Computer Science and Engineering is vast and \r\n impressive.\r\n\r\n Paul's contributions and merit are extremely valuable !!!"
     }
   ],
-  "projects": [{
-    "name": "Xero Developer Practices",
-    "description": "I work with teams across Xero to improve their development practices. This includes coaching, training, and mentoring on a wide range of topics including testing, CI/CD, and software design.",
-    "startDate": "2020-11-01",
-    "endDate": "2023-11-01",
-    "url": "https://www.xero.com/nz/",
-    "highlights": ["Coaching and mentoring teams across Xero to improve their development practices.", "Delivering training on a wide range of topics including testing, CI/CD, and software design.", "Introducing new tools and technologies to teams to help them improve their development practices."]
-  }],
+  "projects": [
+    {
+      "name": "Xero Developer Practices",
+      "description": "I work with teams across Xero to improve their development practices. This includes coaching, training, and mentoring on a wide range of topics including testing, CI/CD, and software design.",
+      "startDate": "2020-11-01",
+      "endDate": "2023-11-01",
+      "url": "https://www.xero.com/nz/",
+      "highlights": [
+        "Coaching and mentoring teams across Xero to improve their development practices.",
+        "Delivering training on a wide range of topics including testing, CI/CD, and software design.",
+        "Introducing new tools and technologies to teams to help them improve their development practices."
+      ]
+    }
+  ],
   "meta": {
     "version": "v1.0.0",
     "canonical": "https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json"
   }
 }
-
