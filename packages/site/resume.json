@@ -1,0 +1,129 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Paul Hicks",
+    "label": "Developer Practices Consultant",
+    "image": "https://avatars.githubusercontent.com/u/92405702",
+    "email": "p45hicks@gmail.com",
+    "phone": "+64210527777",
+    "url": "https://paul-hicks-nz.github.io/portfolio/",
+    "summary": "",
+    "location": {
+      "address": "25 Satara Crescent, Khandallah",
+      "postalCode": "6035",
+      "city": "Wellington",
+      "countryCode": "NZ",
+      "region": "Wellington"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "paul-hicks-67b9539",
+        "url": "https://www.linkedin.com/in/paul-hicks-67b9539/"
+      },
+      {
+        "network": "GitHub",
+        "username": "paul-hicks-nz",
+        "url": "https://github.com/paul-hicks-nz"
+      },
+      {
+        "network": "Stack Exchange",
+        "username": "paul-hicks-67b9539",
+        "url": "https://stackoverflow.com/users/3195526/paul-hicks"
+      }
+    ]
+  },
+  "work": [{
+    "name": "Xero",
+    "position": "Developer Practices Consultant",
+    "url": "https://www.xero.com/nz/",
+    "startDate": "2020-11-01",
+    "endDate": "2022-11-01",
+    "summary": "",
+    "highlights": []
+  }, {
+    "name": "Xero",
+    "position": "Test Lead",
+    "url": "https://www.xero.com/nz/",
+    "startDate": "2018-11-01",
+    "endDate": "2020-10-31",
+    "summary": "",
+    "highlights": []
+  }, {
+    "name": "Xero",
+    "position": "Developer",
+    "url": "https://www.xero.com/nz/",
+    "startDate": "2016-11-01",
+    "endDate": "2018-10-31",
+    "summary": "",
+    "highlights": []
+
+  }],
+  "volunteer": [],
+  "education": [{
+    "institution": "Victoria University of Wellington",
+    "url": "https://www.victoria.ac.nz/",
+    "area": "Computer Science and Software Engineering",
+    "studyType": "Bachelor of Science with Honours",
+    "startDate": "2012-02-01",
+    "endDate": "2015-11-30",
+    "score": "",
+    "courses": [
+      "Software Testing",
+      "Software Design",
+      "Cloud Computing",
+      "Microservices",
+      "Containers"
+    ]
+  }],
+  "awards": [],
+  "certificates": [],
+  "publications": [],
+  "skills": [{
+    "name": "Software Development",
+    "level": "",
+    "keywords": ["Testing", "CI/CD", "Software Design"]
+  }, {
+    "name": "Technology",
+    "level": "",
+    "keywords": ["Cloud Computing", "Microservices", "Containers"]
+  }, {
+    "name": "Sports",
+    "level": "",
+    "keywords": ["Cricket", "Rugby", "Football"]
+  }],
+  "languages": [],
+  "interests": [{
+    "name": "Software Development",
+    "keywords": ["Testing", "CI/CD", "Software Design"]
+  }, {
+    "name": "Technology",
+    "keywords": ["Cloud Computing", "Microservices", "Containers"]
+  }, {
+    "name": "Sports",
+    "keywords": ["Cricket", "Rugby", "Football"]
+  }],
+  "references": [
+    {
+      "name": "Wayne Thomson",
+      "reference": "I worked with Paul while he was a developer and then a test lead. He was very successful at both of those roles. His technical ability is excellent and he has a great attention to detail. He was always introducing new ideas and technologies and contributing in many capacities. As a fresh grad I learned a great many things from Paul. Paul is a great asset for any team."
+    },
+    {
+      "name": "Hugh Fitzpatrick",
+      "reference": "Paul is a first rate Innovator.  He is an expert at providing effective, \r\n innovative and timely solutions to very complex problems.\r\n\r\n He is un-phased by challenges, and surpasses expectation. His\r\n knowledge of Computer Science and Engineering is vast and \r\n impressive.\r\n\r\n Paul's contributions and merit are extremely valuable !!!"
+    }
+  ],
+  "projects": [{
+    "name": "Xero Developer Practices",
+    "description": "I work with teams across Xero to improve their development practices. This includes coaching, training, and mentoring on a wide range of topics including testing, CI/CD, and software design.",
+    "startDate": "2020-11-01",
+    "endDate": "2023-11-01",
+    "url": "https://www.xero.com/nz/",
+    "highlights": ["Coaching and mentoring teams across Xero to improve their development practices.", "Delivering training on a wide range of topics including testing, CI/CD, and software design.", "Introducing new tools and technologies to teams to help them improve their development practices."]
+  }],
+  "meta": {
+    "version": "v1.0.0",
+    "canonical": "https://github.com/jsonresume/resume-schema/blob/v1.0.0/schema.json"
+  }
+}
+

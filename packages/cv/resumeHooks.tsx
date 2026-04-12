@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
+import type { ResumeSchema } from '.';
 
 // Create the Context
 const ResumeContext = createContext<ResumeSchema | undefined>(undefined);

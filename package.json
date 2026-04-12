@@ -2,25 +2,25 @@
   "name": "paul-hicks-nz.github.io",
   "version": "1.0.0",
   "devDependencies": {
-    "@eslint/js": "latest",
+    "@eslint/js": "^10.0.1",
     "@happy-dom/global-registrator": "^20.8.9",
     "@jsonresume/schema": "^1.2.1",
     "@kurone-kito/jsonresume-types": "^0.4.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^14.3.1",
-    "@types/bun": "latest",
+    "@testing-library/react": "^16.3.2",
+    "@types/bun": "^1.3.12",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/testing-library__jest-dom": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.1",
+    "@typescript-eslint/parser": "^8.58.1",
     "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "latest",
+    "eslint": "^10.2.0",
     "happy-dom": "^20.8.9",
     "typescript": "^6.0.2",
-    "typescript-eslint": "latest",
-    "vite": "^5.4.21"
+    "typescript-eslint": "^8.58.1",
+    "vite": "^8.0.8"
   },
   "private": true,
   "scripts": {
@@ -31,5 +31,12 @@
     "test": "bun --filter='@paul-hicks-nz/test-*' run test"
   },
   "type": "module",
-  "workspaces": ["packages/*"]
+  "packageManager": "bun@1.3.11",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "tailwindcss": "^4.2.2"
+  }
 }
