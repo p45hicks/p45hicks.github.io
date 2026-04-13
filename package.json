@@ -37,6 +37,7 @@
   ],
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "classnames": "^2.5.1",
     "tailwindcss": "^4.2.2"
   }
 }
