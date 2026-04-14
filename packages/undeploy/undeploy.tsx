@@ -4,7 +4,7 @@ import './index.css'
 
 function Undeployed(): JSX.Element {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-900 text-white">
+    <div className="grid grid-cols-1 h-screen w-screen items-center justify-center bg-gray-900 text-white">
       <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG1kYnpxc2poYWdyN3Juanl1NDUyYWh3ZDl2enV6cDZ3cHh0a3NveiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wh4f9iW5vCjgQ/giphy.gif" alt="Nothing to see here"/>
       <h1 className="text-4xl font-bold">I may be back.</h1>
     </div>
