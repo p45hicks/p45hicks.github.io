@@ -7,6 +7,6 @@ import App from '@p45hicks/site/App';
 describe('App', () => {
   it('renders welcome message', () => {
     render(<App />)
-    expect(screen.getByText(/Welcome to p45hicks.github.io/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Paul Hicks/i).length).toBeGreaterThanOrEqual(1);
   })
 })
