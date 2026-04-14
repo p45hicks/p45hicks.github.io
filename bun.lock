@@ -47,6 +47,10 @@
       "name": "@p45hicks/test-site",
       "version": "1.0.0",
     },
+    "packages/undeploy": {
+      "name": "@p45hicks/undeploy",
+      "version": "1.0.0",
+    },
   },
   "packages": {
     "@adobe/css-tools": ["@adobe/css-tools@4.4.4", "", {}, "sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg=="],
@@ -114,6 +118,8 @@
     "@p45hicks/site": ["@p45hicks/site@workspace:packages/site"],
 
     "@p45hicks/test-site": ["@p45hicks/test-site@workspace:packages/test"],
+
+    "@p45hicks/undeploy": ["@p45hicks/undeploy@workspace:packages/undeploy"],
 
     "@rolldown/binding-android-arm64": ["@rolldown/binding-android-arm64@1.0.0-rc.15", "", { "os": "android", "cpu": "arm64" }, "sha512-YYe6aWruPZDtHNpwu7+qAHEMbQ/yRl6atqb/AhznLTnD3UY99Q1jE7ihLSahNWkF4EqRPVC4SiR4O0UkLK02tA=="],
 

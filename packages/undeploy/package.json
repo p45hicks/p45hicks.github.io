@@ -1,0 +1,12 @@
+{
+  "name": "@p45hicks/undeploy",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "undeploy": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  }
+}
