@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 
 import type { ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema, ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema, ResumeSchema, ResumeSkillSchema, ResumeWorkSchema, } from '.';
 import { ResumeProvider, useResume } from './resumeHooks';
-import { Card, CardHeader, CardContent, FlipCard, FlipCardFront, FlipCardBack } from '@paul-hicks-nz/elements/Card';
+import { Card, CardHeader, CardContent, FlipCard, FlipCardFront, FlipCardBack } from '@p45hicks/elements/Card';
 
 const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
 function formatYear(dateString?: string): string {

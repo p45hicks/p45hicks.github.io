@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@paul-hicks-nz/site': path.resolve(__dirname, './src'),
+      '@p45hicks/site': path.resolve(__dirname, './src'),
     },
   },
   build: {

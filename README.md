@@ -1,4 +1,4 @@
-# paul-hicks-nz.github.io
+# p45hicks.github.io
 
 Personal portfolio website built with React, TypeScript, Vite, and Bun.
 
