@@ -32,19 +32,19 @@
       },
     },
     "packages/cv": {
-      "name": "@paul-hicks-nz/cv",
+      "name": "@p45hicks/cv",
       "version": "1.0.0",
     },
     "packages/elements": {
-      "name": "@paul-hicks-nz/elements",
+      "name": "@p45hicks/elements",
       "version": "1.0.0",
     },
     "packages/site": {
-      "name": "@paul-hicks-nz/site",
+      "name": "@p45hicks/site",
       "version": "1.0.0",
     },
     "packages/test": {
-      "name": "@paul-hicks-nz/test-site",
+      "name": "@p45hicks/test-site",
       "version": "1.0.0",
     },
   },
@@ -107,13 +107,13 @@
 
     "@oxc-project/types": ["@oxc-project/types@0.124.0", "", {}, "sha512-VBFWMTBvHxS11Z5Lvlr3IWgrwhMTXV+Md+EQF0Xf60+wAdsGFTBx7X7K/hP4pi8N7dcm1RvcHwDxZ16Qx8keUg=="],
 
-    "@paul-hicks-nz/cv": ["@paul-hicks-nz/cv@workspace:packages/cv"],
+    "@p45hicks/cv": ["@p45hicks/cv@workspace:packages/cv"],
 
-    "@paul-hicks-nz/elements": ["@paul-hicks-nz/elements@workspace:packages/elements"],
+    "@p45hicks/elements": ["@p45hicks/elements@workspace:packages/elements"],
 
-    "@paul-hicks-nz/site": ["@paul-hicks-nz/site@workspace:packages/site"],
+    "@p45hicks/site": ["@p45hicks/site@workspace:packages/site"],
 
-    "@paul-hicks-nz/test-site": ["@paul-hicks-nz/test-site@workspace:packages/test"],
+    "@p45hicks/test-site": ["@p45hicks/test-site@workspace:packages/test"],
 
     "@rolldown/binding-android-arm64": ["@rolldown/binding-android-arm64@1.0.0-rc.15", "", { "os": "android", "cpu": "arm64" }, "sha512-YYe6aWruPZDtHNpwu7+qAHEMbQ/yRl6atqb/AhznLTnD3UY99Q1jE7ihLSahNWkF4EqRPVC4SiR4O0UkLK02tA=="],
 
