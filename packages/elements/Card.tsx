@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
 /**
@@ -113,5 +114,139 @@ export function CardHeader({ title, children }: CardHeaderProps): JSX.Element {
       <h1 className='col-span-1 text-2xl font-bold'>{title}</h1>
       {children}
     </div>
+  );
+}
+
+/**
+ * The StackedCard component displays multiple cards as a single card initially.
+ * Clicking the card opens an expanded modal view where users can navigate through
+ * the stacked cards using next/previous buttons or by clicking the card itself.
+ * 
+ * Each child should be a complete card element (e.g., wrapped in a div with appropriate styling).
+ * The component loops continuously - after the last card, it cycles back to the first.
+ * 
+ * Interactions:
+ * - Click the card to expand and enter navigation mode
+ * - Click card or use next/previous buttons to cycle through cards
+ * - Press ESC or click the backdrop to close the expanded view
+ * - Dot indicators show current position in the stack
+ *
+ * @param props The props for the StackedCard component, which include optional className and children (the stacked cards).
+ * @returns The React element representing the StackedCard component.
+ */
+export function StackedCard({ className, children }: CardProps): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const cardArray = Array.isArray(children) ? children : [children];
+
+  useEffect(() => {
+    if (!isExpanded) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsExpanded(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isExpanded]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % cardArray.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + cardArray.length) % cardArray.length);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setIsExpanded(false);
+    }
+  };
+
+  return (
+    <>
+      <div
+        className={classNames(
+          className,
+          'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-4',
+          'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
+          'border-2 rounded-lg border-gray-300 dark:border-black',
+          'cursor-pointer transition-transform hover:shadow-lg'
+        )}
+        onClick={() => setIsExpanded(true)}
+      >
+        {cardArray[0]}
+      </div>
+
+      {isExpanded && (
+        <div
+          className='fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4'
+          onClick={handleBackdropClick}
+        >
+          <div
+            className={classNames(
+              'relative w-full max-w-2xl max-h-[90vh] overflow-auto',
+              'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
+              'border-2 rounded-lg border-gray-300 dark:border-black',
+              'shadow-2xl'
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+          >
+            <div className='p-6'>
+              {cardArray[currentIndex]}
+            </div>
+
+            <div className='absolute top-4 right-4 flex gap-2'>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+                className='p-2 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors'
+                aria-label='Previous card'
+              >
+                ←
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+                className='p-2 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors'
+                aria-label='Next card'
+              >
+                →
+              </button>
+            </div>
+
+            <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+              {cardArray.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentIndex(index);
+                  }}
+                  className={classNames(
+                    'w-2 h-2 rounded-full transition-all',
+                    index === currentIndex
+                      ? 'bg-black dark:bg-white w-8'
+                      : 'bg-gray-500 dark:bg-gray-400 hover:bg-gray-600 dark:hover:bg-gray-300'
+                  )}
+                  aria-label={`Go to card ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

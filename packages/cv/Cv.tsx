@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 
 import type { ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema, ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema, ResumeSchema, ResumeSkillSchema, ResumeWorkSchema, } from '.';
 import { ResumeProvider, useResume } from './resumeHooks';
-import { Card, CardHeader, CardContent, FlipCard, FlipCardFront, FlipCardBack } from '@paul-hicks-nz/elements/Card';
+import { StackedCard, Card, CardHeader, CardContent, FlipCard, FlipCardFront, FlipCardBack } from '@paul-hicks-nz/elements/Card';
 
 const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
 function formatYear(dateString?: string): string {
@@ -91,6 +91,7 @@ export function Socials(): JSX.Element {
 export function WorkExperience(): JSX.Element {
   const resume = useResume();
   return (
+    /*
     <Card className='WorkExperience'>
       <CardHeader title='Experience' />
       <CardContent>
@@ -109,6 +110,23 @@ export function WorkExperience(): JSX.Element {
         )) || []}
       </CardContent>
     </Card>
+    */
+    <StackedCard className='WorkExperience'>
+      <CardHeader title='Experience' />
+      {...resume.work?.map((work: ResumeWorkSchema, index: number) => (
+        <div key={`work-${index}`}>
+          <a href={work.url}>{work.name}</a>
+          <div>{work.position}</div>
+          <div className='text-sm'><em>{formatYear(work.startDate)} - {formatYear(work.endDate)}</em></div>
+          <div>{work.summary}</div>
+          <ul>
+            {work.highlights?.map((highlight: string, highlightIndex: number) => (
+              <li key={`work-${index}-highlight-${highlightIndex}`}>{highlight}</li>
+            ))}
+          </ul>
+        </div>
+      )) || []}
+    </StackedCard>
   );
 }
 
