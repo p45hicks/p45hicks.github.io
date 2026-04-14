@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import type { JSX } from 'react';
 import { CV } from '@p45hicks/cv/Cv';
 
 import type { ResumeSchema } from '@kurone-kito/jsonresume-types';

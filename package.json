@@ -28,8 +28,7 @@
     "build": "bun run --cwd packages/site build",
     "undeploy": "bun run --cwd packages/undeploy undeploy",
     "preview": "bun run --cwd packages/site preview",
-    "lint": "bun --bun --filter='@p45hicks/*' run lint",
-    "test": "bun --filter='@p45hicks/test-*' run test"
+    "lint": "bun --bun --filter='@p45hicks/*' run lint"
   },
   "type": "module",
   "packageManager": "bun@1.3.11",
