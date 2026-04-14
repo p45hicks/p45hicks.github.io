@@ -11,9 +11,29 @@ permissions:
 jobs:
   teardown:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Deactivate GitHub Pages
-        run: |
-          echo "The GitHub API does not support deleting a Pages deployment."
-          echo "Deactivate it by navigating to the repository's Settings > Pages and clicking 'Unpublish'."
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Build
+        run: bun run undeploy
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'packages/undeploy/dist'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
