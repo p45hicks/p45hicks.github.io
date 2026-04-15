@@ -2,6 +2,11 @@ import type { JSX } from 'react';
 import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
+const cardBackgroundColours = 'bg-gray-400  dark:bg-gray-800 border-gray-300 dark:border-black';
+const cardTextColours = 'text-black dark:text-gray-300';
+const cardColours = `${cardBackgroundColours} ${cardTextColours}`;
+
+
 /**
  * 
  * This file contains some basic card components that can be used to build the CV.
@@ -26,10 +31,8 @@ interface CardProps {
 export function Card({ className, children }: CardProps): JSX.Element {
   return (
     <div className={classNames(className,
-      'h-30 w-100 m-2',
-      'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-4',
-      'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
-      'border-2 rounded-lg border-gray-300 dark:border-black')}>
+      'w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col',
+      cardColours)}>
       {children}
     </div>
   );
@@ -67,7 +70,6 @@ export function CardContent({ children }: CardContentProps): JSX.Element {
 export function FlipCard({ className, children }: CardProps): JSX.Element {
   return (
     <div className={classNames(className,
-      'h-30 w-100 m-2',
       'group relative perspective-normal cursor-pointer'
     )}>
       {children}
@@ -78,8 +80,7 @@ export function FlipCard({ className, children }: CardProps): JSX.Element {
 export function FlipCardFront({ children }: CardContentProps): JSX.Element {
   return (
     <div className={classNames('absolute inset-0 h-full w-full',
-      'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
-      'border-2 rounded-lg border-gray-300 dark:border-black',
+      cardColours,
       'backface-hidden',
       'transition-transform duration-500 transform-style-preserve-3d',
       'group-active:-rotate-y-180')}>
@@ -90,8 +91,7 @@ export function FlipCardFront({ children }: CardContentProps): JSX.Element {
 export function FlipCardBack({ children }: CardContentProps): JSX.Element {
   return (
     <div className={classNames('absolute inset-0 h-full w-full',
-      'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
-      'border-2 rounded-lg border-gray-300 dark:border-black',
+      cardColours,
       'backface-hidden',
       'transition-transform duration-500 transform-style-preserve-3d',
       'not-group-active:rotate-y-180')}>
@@ -195,12 +195,8 @@ export function CardDeck({ className, children }: CardProps): JSX.Element {
       <div
         className={classNames(
           className,
-          'w-100 h-30 m-2',
-          'grid grid-cols-1 p-4',
-          
-          '',
-          'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
-          'border-2 rounded-lg border-gray-300 dark:border-black',
+          'w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col',
+          cardColours,
           'cursor-pointer transition-transform hover:shadow-lg'
         )}
         onClick={() => setIsExpanded(true)}
@@ -216,8 +212,7 @@ export function CardDeck({ className, children }: CardProps): JSX.Element {
           <div
             className={classNames(
               'relative w-full max-w-2xl max-h-[90vh] overflow-auto',
-              'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
-              'border-2 rounded-lg border-gray-300 dark:border-black',
+              cardColours,
               'shadow-2xl'
             )}
             onClick={(e) => {
