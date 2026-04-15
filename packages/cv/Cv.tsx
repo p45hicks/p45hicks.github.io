@@ -6,7 +6,7 @@ import {
   Card, CardHeader, CardContent,
   FlipCard, FlipCardFront, FlipCardBack,
   CardDeck, TopCard, HiddenCards
-} from '@paul-hicks-nz/elements/Card';
+} from '@p45hicks/elements/Card';
 
 const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
 function formatYear(dateString?: string): string {
