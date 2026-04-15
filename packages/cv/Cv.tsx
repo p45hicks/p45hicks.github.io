@@ -2,7 +2,11 @@ import type { JSX } from 'react';
 
 import type { ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema, ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema, ResumeSchema, ResumeSkillSchema, ResumeWorkSchema, } from '.';
 import { ResumeProvider, useResume } from './resumeHooks';
-import { StackedCard, Card, CardHeader, CardContent, FlipCard, FlipCardFront, FlipCardBack } from '@paul-hicks-nz/elements/Card';
+import {
+  Card, CardHeader, CardContent,
+  FlipCard, FlipCardFront, FlipCardBack,
+  CardDeck, TopCard, HiddenCards
+} from '@paul-hicks-nz/elements/Card';
 
 const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
 function formatYear(dateString?: string): string {
@@ -48,7 +52,7 @@ export function CV({ cv }: { cv: ResumeSchema }): JSX.Element {
 export function BasicInfo(): JSX.Element {
   const resume = useResume();
   return (
-    <FlipCard className='BasicInfo h-30 w-100 m-2'>
+    <FlipCard className='BasicInfo'>
       <FlipCardFront>
         <div className="grid grid-cols-2 grid-rows-1 m-2">
           <div>
@@ -79,7 +83,7 @@ export function Socials(): JSX.Element {
       <CardHeader title='Socials' />
       <CardContent>
         {resume.basics?.profiles?.map((profile: ResumeProfileSchema, index: number) => (
-          <div key={`profile-${index}`}>
+          <div key={`profile-${index}`} className='ml-10'>
             <a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.network}</a>
           </div>
         )) || []}
@@ -88,83 +92,105 @@ export function Socials(): JSX.Element {
   );
 }
 
+function getCareerDuration(work: ResumeWorkSchema[]): number {
+  const thisYear = new Date().getFullYear();
+  const jobStartYears = work.map((job) => job.startDate ? new Date(job.startDate).getFullYear() : thisYear);
+  const earliestYear = jobStartYears.reduce((earliestYear, currentYearToCheck) => (currentYearToCheck < earliestYear) ? currentYearToCheck : earliestYear);
+  const careerDuration = thisYear - earliestYear;
+  return careerDuration;
+}
+
 export function WorkExperience(): JSX.Element {
   const resume = useResume();
+  if (!resume.work || resume.work.length === 0) {
+    return <></>;
+  };
+
+  const careerDuration = getCareerDuration(resume.work);
+
+  const cardStack = resume.work.map((work: ResumeWorkSchema, index: number) => (
+    <div key={`work-${index}`}>
+      <a href={work.url}>{work.name}</a>
+      <div>{work.position}</div>
+      <div className='text-sm'><em>{formatYear(work.startDate)} - {formatYear(work.endDate)}</em></div>
+      <div>{work.summary}</div>
+      <ul>
+        {work.highlights?.map((highlight: string, highlightIndex: number) => (
+          <li key={`work-${index}-highlight-${highlightIndex}`}>{highlight}</li>
+        ))}
+      </ul>
+    </div>
+  ));
+
   return (
-    /*
-    <Card className='WorkExperience'>
-      <CardHeader title='Experience' />
-      <CardContent>
-        {resume.work?.map((work: ResumeWorkSchema, index: number) => (
-          <div key={`work-${index}`}>
-            <a href={work.url}>{work.name}</a>
-            <div>{work.position}</div>
-            <div className='text-sm'><em>{formatYear(work.startDate)} - {formatYear(work.endDate)}</em></div>
-            <div>{work.summary}</div>
-            <ul>
-              {work.highlights?.map((highlight: string, highlightIndex: number) => (
-                <li key={`work-${index}-highlight-${highlightIndex}`}>{highlight}</li>
-              ))}
-            </ul>
-          </div>
-        )) || []}
-      </CardContent>
-    </Card>
-    */
-    <StackedCard className='WorkExperience'>
-      <CardHeader title='Experience' />
-      {...resume.work?.map((work: ResumeWorkSchema, index: number) => (
-        <div key={`work-${index}`}>
-          <a href={work.url}>{work.name}</a>
-          <div>{work.position}</div>
-          <div className='text-sm'><em>{formatYear(work.startDate)} - {formatYear(work.endDate)}</em></div>
-          <div>{work.summary}</div>
-          <ul>
-            {work.highlights?.map((highlight: string, highlightIndex: number) => (
-              <li key={`work-${index}-highlight-${highlightIndex}`}>{highlight}</li>
-            ))}
-          </ul>
-        </div>
-      )) || []}
-    </StackedCard>
-  );
+    <CardDeck className='WorkExperience'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Experience' />
+          {<p>Click to read the details of a career spanning {careerDuration} years.</p>}
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {cardStack}
+      </HiddenCards>
+    </CardDeck>);
 }
 
 export function Projects(): JSX.Element {
   const resume = useResume();
+  if (!resume.projects || resume.projects.length === 0) {
+    return <></>;
+  }
+
+  const cardStack = resume.projects.map((project: ResumeProjectSchema, index: number) => (
+    <div key={`project-${index}`}>
+      <a href={project.url}>{project.name}</a>
+      <div>{formatYear(project.startDate)} - {formatYear(project.endDate)}</div>
+      <div>{project.description}</div>
+      <ul className='list-disc list-inside'>
+        {project.roles?.map((role: string, roleIndex: number) => (
+          <li key={`project-${index}-${role}-${roleIndex}`}>{role}</li>
+        ))}
+      </ul>
+      {
+        project.highlights?.map((highlight: string, highlightIndex: number) => (
+          <div key={`project-${index}-highlight-${highlightIndex}`}>{highlight}</div>
+        ))
+      }
+    </div>
+  ));
+
   return (
-    <Card className='Projects'>
-      <CardHeader title='Projects' />
-      <CardContent>
-        {resume.projects?.map((project: ResumeProjectSchema, index: number) => (
-          <div key={`project-${index}`}>
-            <a href={project.url}>{project.name}</a>
-            <div>{formatYear(project.startDate)} - {formatYear(project.endDate)}</div>
-            <div>{project.description}</div>
-            <ul className='list-disc list-inside'>
-              {project.roles?.map((role: string, roleIndex: number) => (
-                <li key={`project-${index}-${role}-${roleIndex}`}>{role}</li>
-              ))}
-            </ul>
-            {
-              project.highlights?.map((highlight: string, highlightIndex: number) => (
-                <div key={`project-${index}-highlight-${highlightIndex}`}>{highlight}</div>
-              ))
-            }
-          </div>
-        )) || []}
-      </CardContent>
-    </Card>
+    <CardDeck className='Projects'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Projects' />
+          <p>Click to read the details of {resume.projects.length} projects.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {cardStack}
+      </HiddenCards>
+    </CardDeck>
   );
 }
 
 export function Education(): JSX.Element {
   const resume = useResume();
+  if (!resume.education || resume.education.length === 0) {
+    return <></>;
+  };
+
   return (
-    <Card className='Education'>
-      <CardHeader title='Education' />
-      <CardContent>
-        {resume.education?.map((edu: ResumeEducationSchema, index: number) => (
+    <CardDeck className='Education'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Education' />
+          <p>Click to read about my educational background.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {resume.education.map((edu: ResumeEducationSchema, index: number) => (
           <div key={`education-${index}`}>
             <a href={edu.url}>{edu.studyType} {edu.area && `(${edu.area})`} at {edu.institution}</a>
             <div className='text-sm'><em>{formatYear(edu.startDate)} - {formatYear(edu.endDate)}</em></div>
@@ -175,78 +201,110 @@ export function Education(): JSX.Element {
               ))}
             </ul>
           </div>
-        )) || []}
-      </CardContent>
-    </Card>
+        ))}
+      </HiddenCards>
+    </CardDeck>
   );
 }
 
 export function Skills(): JSX.Element {
   const resume = useResume();
+  if (!resume.skills || resume.skills.length === 0) {
+    return <></>;
+  };
+
   return (
-    <Card className='Skills'>
-      <CardHeader title='Skills' />
-      <CardContent>
-        {resume.skills?.map((skill: ResumeSkillSchema, index: number) => (
+    <CardDeck className='Skills'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Skills' />
+          <p>Click to read about my skills and experience level with each.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {resume.skills.map((skill: ResumeSkillSchema, index: number) => (
           <div key={`skill-${index}`}>
             <p>{skill.level} {skill.name}</p>
             <p><em>{skill.keywords?.join(', ')}</em></p>
           </div>
-        )) || []}
-      </CardContent>
-    </Card>
+        ))}
+      </HiddenCards>
+    </CardDeck>
   );
 }
+
 
 export function Interests(): JSX.Element {
   const resume = useResume();
   return (
-    <Card className='Interests'>
-      <CardHeader title='Interests' />
-      <CardContent>
+    <CardDeck className='Interests'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Interests' />
+          <p>Click to read about my interests.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
         {resume.interests?.map((interest: ResumeInterestSchema, index: number) => (
           <div key={`interest-${index}`}>
             <p>{interest.name}</p>
             <p><em>{interest.keywords?.join(', ')}</em></p>
           </div>
         )) || []}
-      </CardContent>
-    </Card>
+      </HiddenCards>
+    </CardDeck>
   );
 }
 
 export function References(): JSX.Element {
   const resume = useResume();
+  if (!resume.references || resume.references.length === 0) {
+    return <></>;
+  };
 
   return (
-    <Card className='References'>
-      <CardHeader title='References' />
-      <CardContent>
-        {resume.references?.map((ref: ResumeReferenceSchema, index: number) => (
+    <CardDeck className='References'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='References' />
+          <p>{resume.references.length} people have been kind enough to provide references on LinkedIn.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {resume.references.map((ref: ResumeReferenceSchema, index: number) => (
           <div key={`reference-${index}`}>
-            <p>{ref.reference}</p>
+            <p className="mt-10">{ref.reference}</p>
             <p>- <em>{ref.name}</em></p>
           </div>
-        )) || []}
-      </CardContent>
-    </Card>
+        ))}
+      </HiddenCards>
+    </CardDeck>
   );
 }
 
 export function Awards(): JSX.Element {
   const resume = useResume();
+  if (!resume.awards || resume.awards.length === 0) {
+    return <></>;
+  };
 
   return (
-    <Card className='Awards'>
-      <CardHeader title='Awards' />
-      <CardContent>
-        {resume.awards?.map((award: ResumeAwardSchema, index: number) => (
+    <CardDeck className='Awards'>
+      <TopCard>
+        <CardContent>
+          <CardHeader title='Awards' />
+          <p>Click to read about {resume.awards.length} awards won.</p>
+        </CardContent>
+      </TopCard>
+      <HiddenCards>
+        {resume.awards.map((award: ResumeAwardSchema, index: number) => (
           <div key={`award-${index}`}>
             <p>{award.title} from {award.awarder}</p>
             <p><em>{formatYear(award.date)}</em></p>
             <p>{award.summary}</p>
           </div>
-        )) || []}
-      </CardContent>
-    </Card>);
+        ))}
+      </HiddenCards>
+    </CardDeck>
+  );
 }

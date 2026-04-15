@@ -25,7 +25,9 @@ interface CardProps {
  */
 export function Card({ className, children }: CardProps): JSX.Element {
   return (
-    <div className={classNames(className, 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-4',
+    <div className={classNames(className,
+      'h-30 w-100 m-2',
+      'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-4',
       'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
       'border-2 rounded-lg border-gray-300 dark:border-black')}>
       {children}
@@ -65,6 +67,7 @@ export function CardContent({ children }: CardContentProps): JSX.Element {
 export function FlipCard({ className, children }: CardProps): JSX.Element {
   return (
     <div className={classNames(className,
+      'h-30 w-100 m-2',
       'group relative perspective-normal cursor-pointer'
     )}>
       {children}
@@ -118,13 +121,29 @@ export function CardHeader({ title, children }: CardHeaderProps): JSX.Element {
 }
 
 /**
- * The StackedCard component displays multiple cards as a single card initially.
+ * The CardDeck component displays multiple cards as a single card initially.
  * Clicking the card opens an expanded modal view where users can navigate through
  * the stacked cards using next/previous buttons or by clicking the card itself.
- * 
+ *
+ * Only two chilren are required: the top card (which is visible initially) and
+ * the hidden deck of cards (that are revealed in the expanded view). 
  * Each child should be a complete card element (e.g., wrapped in a div with appropriate styling).
  * The component loops continuously - after the last card, it cycles back to the first.
- * 
+ *
+ * The JSX looks like this:
+ * ```
+ * <CardDeck>
+ *   <TopCard>
+ *     <div>...</div>
+ *   </TopCard>
+ *   <HiddenCards>
+ *     <div>...</div>
+ *     <div>...</div>
+ *     <div>...</div>
+ *   </HiddenCards>
+ * </CardDeck>
+ * ```
+ *
  * Interactions:
  * - Click the card to expand and enter navigation mode
  * - Click card or use next/previous buttons to cycle through cards
@@ -134,37 +153,41 @@ export function CardHeader({ title, children }: CardHeaderProps): JSX.Element {
  * @param props The props for the StackedCard component, which include optional className and children (the stacked cards).
  * @returns The React element representing the StackedCard component.
  */
-export function StackedCard({ className, children }: CardProps): JSX.Element {
+export function TopCard({ children }: { children: JSX.Element }) {
+  return <>{children}</>;
+}
+
+export function HiddenCards({ children }: { children: JSX.Element[] }) {
+  return <>{children}</>;
+}
+export function CardDeck({ className, children }: CardProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const cardArray = Array.isArray(children) ? children : [children];
+  if (!children || !Array.isArray(children) || children.length < 2) {
+    return <></>;
+  }
+
+  const baseCard: JSX.Element | undefined = children.find(child => child.type === TopCard)?.props.children;
+  const hiddenCards: JSX.Element[] = children.find(child => child.type === HiddenCards)?.props.children;
 
   useEffect(() => {
     if (!isExpanded) return;
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsExpanded(false);
-      }
+      if (e.key === 'Escape') setIsExpanded(false);
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isExpanded]);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % cardArray.length);
+    setCurrentIndex((prev) => (prev + 1) % hiddenCards.length);
   };
-
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + cardArray.length) % cardArray.length);
+    setCurrentIndex((prev) => (prev - 1 + hiddenCards.length) % hiddenCards.length);
   };
-
   const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      setIsExpanded(false);
-    }
+    if (e.target === e.currentTarget) setIsExpanded(false);
   };
 
   return (
@@ -172,17 +195,20 @@ export function StackedCard({ className, children }: CardProps): JSX.Element {
       <div
         className={classNames(
           className,
-          'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-4',
+          'w-100 h-30 m-2',
+          'grid grid-cols-1 p-4',
+          
+          '',
           'bg-gray-400 text-black dark:bg-gray-800 dark:text-gray-300',
           'border-2 rounded-lg border-gray-300 dark:border-black',
           'cursor-pointer transition-transform hover:shadow-lg'
         )}
         onClick={() => setIsExpanded(true)}
       >
-        {cardArray[0]}
+        {baseCard}
       </div>
 
-      {isExpanded && (
+      {isExpanded && hiddenCards.length > 0 && (
         <div
           className='fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4'
           onClick={handleBackdropClick}
@@ -200,7 +226,7 @@ export function StackedCard({ className, children }: CardProps): JSX.Element {
             }}
           >
             <div className='p-6'>
-              {cardArray[currentIndex]}
+              {hiddenCards[currentIndex]}
             </div>
 
             <div className='absolute top-4 right-4 flex gap-2'>
@@ -227,7 +253,7 @@ export function StackedCard({ className, children }: CardProps): JSX.Element {
             </div>
 
             <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
-              {cardArray.map((_, index) => (
+              {hiddenCards.map((_, index) => (
                 <button
                   key={index}
                   onClick={(e) => {
