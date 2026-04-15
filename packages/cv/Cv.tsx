@@ -34,7 +34,7 @@ function formatYear(dateString?: string): string {
 export function CV({ cv }: { cv: ResumeSchema }): JSX.Element {
   return (
     <ResumeProvider resume={cv}>
-      <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
         <BasicInfo />
         <Socials />
         <WorkExperience />
@@ -44,7 +44,7 @@ export function CV({ cv }: { cv: ResumeSchema }): JSX.Element {
         <Interests />
         <Education />
         <Awards />
-      </>
+      </div>
     </ResumeProvider>
   );
 }
@@ -52,7 +52,7 @@ export function CV({ cv }: { cv: ResumeSchema }): JSX.Element {
 export function BasicInfo(): JSX.Element {
   const resume = useResume();
   return (
-    <FlipCard className='BasicInfo'>
+    <FlipCard className='BasicInfo w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col'>
       <FlipCardFront>
         <div className="grid grid-cols-2 grid-rows-1 m-2">
           <div>
