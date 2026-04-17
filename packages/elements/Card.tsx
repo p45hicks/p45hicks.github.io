@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
-const cardBackgroundColours = 'bg-gray-400  dark:bg-gray-800 border-gray-300 dark:border-black';
+const cardBackgroundColours = 'bg-gray-200  dark:bg-gray-800 border-gray-300 dark:border-black';
 const cardTextColours = 'text-black dark:text-gray-300';
 const cardColours = `${cardBackgroundColours} ${cardTextColours}`;
 
@@ -31,7 +31,7 @@ interface CardProps {
 export function Card({ className, children }: CardProps): JSX.Element {
   return (
     <div className={classNames(className,
-      'w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col',
+      'w-full max-w-xs h-64 rounded-lg shadow-md flex flex-col',
       cardColours)}>
       {children}
     </div>
@@ -49,7 +49,9 @@ interface CardContentProps {
  */
 export function CardContent({ children }: CardContentProps): JSX.Element {
   return (
-    <div className='md:col-span-2 lg:col-span-4 grid-cols-subgrid md:grid-cols-3'>
+    <div className={classNames(
+      'md:col-span-2 lg:col-span-4 grid-cols-subgrid md:grid-cols-3'
+    )}>
       {children}
     </div>
   );
@@ -195,8 +197,8 @@ export function CardDeck({ className, children }: CardProps): JSX.Element {
       <div
         className={classNames(
           className,
-          'w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col',
           cardColours,
+          'w-full max-w-xs h-64 inset-0 rounded-lg shadow-md flex flex-col',
           'cursor-pointer transition-transform hover:shadow-lg'
         )}
         onClick={() => setIsExpanded(true)}
