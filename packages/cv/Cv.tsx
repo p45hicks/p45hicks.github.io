@@ -52,7 +52,7 @@ export function CV({ cv }: { cv: ResumeSchema }): JSX.Element {
 export function BasicInfo(): JSX.Element {
   const resume = useResume();
   return (
-    <FlipCard className='BasicInfo w-full max-w-xs h-64 bg-white rounded-lg shadow-md flex flex-col'>
+    <FlipCard className='BasicInfo w-full max-w-xs h-64 rounded-lg shadow-md flex flex-col'>
       <FlipCardFront>
         <div className="grid grid-cols-2 grid-rows-1 m-2">
           <div>
