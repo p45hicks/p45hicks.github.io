@@ -105,6 +105,17 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
           <div className='mt-2'>{resume.basics?.email}</div>
           <div>{resume.basics?.phone}</div>
           {resume.basics?.summary && <p className='mt-3'>{resume.basics.summary}</p>}
+          {resume.basics?.profiles && resume.basics.profiles.length > 0 && <div className='mt-3 flex flex-wrap items-center gap-2'>
+            {resume.basics.profiles.map((profile: ResumeProfileSchema, index: number) => (
+              <div key={`social-${index}`}>
+                {profile.html ? (
+                  <div dangerouslySetInnerHTML={{ __html: profile.html }} />
+                ) : (
+                  <a href={profile.url} target='_blank' rel='noopener noreferrer'>{profile.network}</a>
+                )}
+              </div>
+            ))}
+          </div>}
         </div>
         {resume.basics?.image && (
           <img
@@ -116,28 +127,6 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       </div>
     )
   });
-
-  if (resume.basics?.profiles && resume.basics.profiles.length > 0) {
-    sections.push({
-      id: 'socials',
-      title: 'Socials',
-      menu: (
-        <div>
-          <div className='cv-menu-label'>Socials</div>
-          <div className='cv-meta'>{resume.basics.profiles.length} profiles</div>
-        </div>
-      ),
-      content: (
-        <div className='cv-stack-tight'>
-          {resume.basics.profiles.map((profile: ResumeProfileSchema, index: number) => (
-            <div key={`social-${index}`}>
-              <a href={profile.url} target='_blank' rel='noopener noreferrer'>{profile.network}</a>
-            </div>
-          ))}
-        </div>
-      )
-    });
-  }
 
   if (resume.work && resume.work.length > 0) {
     const careerDuration = getCareerDuration(resume.work);
