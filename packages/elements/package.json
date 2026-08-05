@@ -1,9 +1,0 @@
-{
-  "name": "@p45hicks/elements",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
-  }
-}
