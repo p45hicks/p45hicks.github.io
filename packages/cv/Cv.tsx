@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from 'react';
+import { type JSX } from 'react';
 
 import type { ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema, ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema, ResumeSchema, ResumeSkillSchema, ResumeWorkSchema, } from '.';
 import { ResumeProvider, useResume } from './resumeHooks';
