@@ -14,7 +14,7 @@ describe('CvMenu', () => {
 
     expect(screen.getByRole('navigation', { name: /cv sections/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Paul Hicks/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Basic Info/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Profile/i })).toBeInTheDocument();
     expect(screen.getByText(/p45hicks@gmail.com/i)).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe('CvMenu', () => {
     expect(activeMenuItem).toHaveClass('cv-nav-item');
     expect(activeMenuItem).toHaveAttribute('aria-current', 'page');
 
-    const heading = screen.getByRole('heading', { name: /Basic Info/i });
+    const heading = screen.getByRole('heading', { name: /Profile/i });
     const panel = heading.closest('main');
     expect(panel).not.toBeNull();
     expect(panel).toHaveClass('cv-content-panel');
