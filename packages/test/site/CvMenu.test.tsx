@@ -26,4 +26,20 @@ describe('CvMenu', () => {
     expect(screen.getByRole('heading', { name: /Projects/i })).toBeInTheDocument();
     expect(screen.getByText(/Managed Services Team Lead/i)).toBeInTheDocument();
   });
+
+  it('applies reusable semantic style classes to layout regions', () => {
+    render(<CvMenu cv={cv} />);
+
+    const nav = screen.getByRole('navigation', { name: /cv sections/i });
+    expect(nav).toHaveClass('cv-nav-panel');
+
+    const activeMenuItem = screen.getByRole('button', { name: /Paul Hicks/i });
+    expect(activeMenuItem).toHaveClass('cv-nav-item');
+    expect(activeMenuItem).toHaveAttribute('aria-current', 'page');
+
+    const heading = screen.getByRole('heading', { name: /Basic Info/i });
+    const panel = heading.closest('main');
+    expect(panel).not.toBeNull();
+    expect(panel).toHaveClass('cv-content-panel');
+  });
 });

@@ -31,16 +31,16 @@ function CvMenuContent(): JSX.Element {
   const activeSection = sections.find((section) => section.id === activeSectionId) ?? sections[0];
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-[18rem_minmax(0,1fr)] gap-4 p-4'>
+    <div className='cv-shell'>
       <aside className='md:sticky md:top-4 h-fit'>
-        <nav aria-label='CV sections' className='rounded-lg shadow-md border border-gray-300 bg-gray-100 p-2'>
+        <nav aria-label='CV sections' className='cv-nav-panel'>
           {sections.map((section) => (
             <button
               key={section.id}
               type='button'
               onClick={() => setActiveSectionId(section.id)}
               aria-current={activeSection.id === section.id ? 'page' : undefined}
-              className='w-full text-left p-3 rounded-md transition-colors hover:bg-gray-200 aria-[current=page]:bg-white aria-[current=page]:shadow-sm'
+              className='cv-nav-item'
             >
               {section.menu}
             </button>
@@ -48,9 +48,9 @@ function CvMenuContent(): JSX.Element {
         </nav>
       </aside>
 
-      <main className='rounded-lg shadow-md border border-gray-300 bg-white p-6'>
+      <main className='cv-content-panel'>
         <h2 className='text-2xl font-bold mb-4'>{activeSection.title}</h2>
-        <div className='space-y-4'>
+        <div className='cv-stack'>
           {activeSection.content}
         </div>
       </main>
@@ -66,8 +66,8 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
     title: 'Basic Info',
     menu: (
       <div>
-        <div className='font-semibold'>{resume.basics?.name ?? 'Basic Info'}</div>
-        <div className='text-sm text-gray-600'>{resume.basics?.label ?? 'Profile'}</div>
+        <div className='cv-menu-label'>{resume.basics?.name ?? 'Basic Info'}</div>
+        <div className='cv-meta'>{resume.basics?.label ?? 'Profile'}</div>
       </div>
     ),
     content: (
@@ -96,12 +96,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Socials',
       menu: (
         <div>
-          <div className='font-semibold'>Socials</div>
-          <div className='text-sm text-gray-600'>{resume.basics.profiles.length} profiles</div>
+          <div className='cv-menu-label'>Socials</div>
+          <div className='cv-meta'>{resume.basics.profiles.length} profiles</div>
         </div>
       ),
       content: (
-        <div className='space-y-2'>
+        <div className='cv-stack-tight'>
           {resume.basics.profiles.map((profile: ResumeProfileSchema, index: number) => (
             <div key={`social-${index}`}>
               <a href={profile.url} target='_blank' rel='noopener noreferrer'>{profile.network}</a>
@@ -119,12 +119,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Experience',
       menu: (
         <div>
-          <div className='font-semibold'>Experience</div>
-          <div className='text-sm text-gray-600'>{careerDuration} years</div>
+          <div className='cv-menu-label'>Experience</div>
+          <div className='cv-meta'>{careerDuration} years</div>
         </div>
       ),
       content: (
-        <div className='space-y-6'>
+        <div className='cv-stack-loose'>
           {resume.work.map((work: ResumeWorkSchema, index: number) => (
             <div key={`work-menu-${index}`}>
               <a href={work.url}>{work.name}</a>
@@ -149,12 +149,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Projects',
       menu: (
         <div>
-          <div className='font-semibold'>Projects</div>
-          <div className='text-sm text-gray-600'>{resume.projects.length} entries</div>
+          <div className='cv-menu-label'>Projects</div>
+          <div className='cv-meta'>{resume.projects.length} entries</div>
         </div>
       ),
       content: (
-        <div className='space-y-6'>
+        <div className='cv-stack-loose'>
           {resume.projects.map((project: ResumeProjectSchema, index: number) => (
             <div key={`project-menu-${index}`}>
               <a href={project.url}>{project.name}</a>
@@ -181,12 +181,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Skills',
       menu: (
         <div>
-          <div className='font-semibold'>Skills</div>
-          <div className='text-sm text-gray-600'>{resume.skills.length} skill groups</div>
+          <div className='cv-menu-label'>Skills</div>
+          <div className='cv-meta'>{resume.skills.length} skill groups</div>
         </div>
       ),
       content: (
-        <div className='space-y-4'>
+        <div className='cv-stack'>
           {resume.skills.map((skill: ResumeSkillSchema, index: number) => (
             <div key={`skill-menu-${index}`}>
               <p>{skill.level} {skill.name}</p>
@@ -204,12 +204,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Interests',
       menu: (
         <div>
-          <div className='font-semibold'>Interests</div>
-          <div className='text-sm text-gray-600'>{resume.interests.length} areas</div>
+          <div className='cv-menu-label'>Interests</div>
+          <div className='cv-meta'>{resume.interests.length} areas</div>
         </div>
       ),
       content: (
-        <div className='space-y-4'>
+        <div className='cv-stack'>
           {resume.interests.map((interest: ResumeInterestSchema, index: number) => (
             <div key={`interest-menu-${index}`}>
               <p>{interest.name}</p>
@@ -227,12 +227,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Education',
       menu: (
         <div>
-          <div className='font-semibold'>Education</div>
-          <div className='text-sm text-gray-600'>{resume.education.length} entries</div>
+          <div className='cv-menu-label'>Education</div>
+          <div className='cv-meta'>{resume.education.length} entries</div>
         </div>
       ),
       content: (
-        <div className='space-y-6'>
+        <div className='cv-stack-loose'>
           {resume.education.map((edu: ResumeEducationSchema, index: number) => (
             <div key={`education-menu-${index}`}>
               <a href={edu.url}>{edu.studyType} {edu.area && `(${edu.area})`} at {edu.institution}</a>
@@ -256,12 +256,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'References',
       menu: (
         <div>
-          <div className='font-semibold'>References</div>
-          <div className='text-sm text-gray-600'>{resume.references.length} recommendations</div>
+          <div className='cv-menu-label'>References</div>
+          <div className='cv-meta'>{resume.references.length} recommendations</div>
         </div>
       ),
       content: (
-        <div className='space-y-6'>
+        <div className='cv-stack-loose'>
           {resume.references.map((ref: ResumeReferenceSchema, index: number) => (
             <div key={`reference-menu-${index}`}>
               <p>{ref.reference}</p>
@@ -279,12 +279,12 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
       title: 'Awards',
       menu: (
         <div>
-          <div className='font-semibold'>Awards</div>
-          <div className='text-sm text-gray-600'>{resume.awards.length} awards</div>
+          <div className='cv-menu-label'>Awards</div>
+          <div className='cv-meta'>{resume.awards.length} awards</div>
         </div>
       ),
       content: (
-        <div className='space-y-4'>
+        <div className='cv-stack'>
           {resume.awards.map((award: ResumeAwardSchema, index: number) => (
             <div key={`award-menu-${index}`}>
               <p>{award.title} from {award.awarder}</p>

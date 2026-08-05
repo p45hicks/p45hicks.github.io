@@ -1,2 +1,88 @@
 @import "tailwindcss";
 @source "..";
+
+:root {
+	--cv-surface: #ffffff;
+	--cv-surface-muted: #f3f4f6;
+	--cv-surface-hover: #e5e7eb;
+	--cv-surface-active: #ffffff;
+	--cv-border: #d1d5db;
+	--cv-text: #111827;
+	--cv-text-muted: #4b5563;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--cv-surface: #1f2937;
+		--cv-surface-muted: #111827;
+		--cv-surface-hover: #1f2937;
+		--cv-surface-active: #374151;
+		--cv-border: #111827;
+		--cv-text: #e5e7eb;
+		--cv-text-muted: #9ca3af;
+	}
+}
+
+.dark {
+	--cv-surface: #1f2937;
+	--cv-surface-muted: #111827;
+	--cv-surface-hover: #1f2937;
+	--cv-surface-active: #374151;
+	--cv-border: #111827;
+	--cv-text: #e5e7eb;
+	--cv-text-muted: #9ca3af;
+}
+
+@layer components {
+	.cv-shell {
+		@apply grid grid-cols-1 gap-4 p-4 md:grid-cols-[18rem_minmax(0,1fr)];
+	}
+
+	.cv-nav-panel {
+		@apply rounded-lg border p-2 shadow-md;
+		background-color: var(--cv-surface-muted);
+		border-color: var(--cv-border);
+		color: var(--cv-text);
+	}
+
+	.cv-content-panel {
+		@apply rounded-lg border p-6 shadow-md;
+		background-color: var(--cv-surface);
+		border-color: var(--cv-border);
+		color: var(--cv-text);
+	}
+
+	.cv-nav-item {
+		@apply w-full rounded-md p-3 text-left transition-colors;
+	}
+
+	.cv-nav-item:hover {
+		background-color: var(--cv-surface-hover);
+	}
+
+	.cv-nav-item[aria-current='page'] {
+		@apply shadow-sm;
+		background-color: var(--cv-surface-active);
+	}
+
+	.cv-menu-label {
+		@apply font-semibold;
+	}
+
+	.cv-meta {
+		@apply text-sm;
+		color: var(--cv-text-muted);
+	}
+
+	.cv-stack-tight {
+		@apply space-y-2;
+	}
+
+	.cv-stack {
+		@apply space-y-4;
+	}
+
+	.cv-stack-loose {
+		@apply space-y-6;
+	}
+}
