@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
-import { CvMenu } from '@p45hicks/cv/Cv';
+import { CvMenu } from '@p45hicks/cv/CvMenu';
 import resumeJson from '@p45hicks/site/resume.json';
 
 const cv: ResumeSchema = resumeJson as ResumeSchema;
