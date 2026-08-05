@@ -19,17 +19,20 @@
       {
         "network": "LinkedIn",
         "username": "paul-hicks-67b9539",
-        "url": "https://www.linkedin.com/in/paul-hicks-67b9539/"
+        "url": "https://www.linkedin.com/in/paul-hicks-67b9539/",
+        "html": "<a href=\"https://www.linkedin.com/in/paul-hicks-67b9539/\"><img src=\"https://delivery-p143253-e1476319.adobeaemcloud.com/adobe/assets/urn:aaid:aem:cdee0b35-c0cb-4f47-a9a1-88150746418f/original/as/brand-inlogo-download-fg-dsk-v01-png-original.png\" height=\"32\" width=\"32\"/></a>"
       },
       {
         "network": "GitHub",
         "username": "p45hicks",
-        "url": "https://github.com/p45hicks"
+        "url": "https://github.com/p45hicks",
+        "html": "<a href=\"https://github.com/p45hicks\"><img src=\"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\" width=\"32\" height=\"32\" alt=\"profile for Paul Hicks on GitHub\" title=\"profile for Paul Hicks on GitHub\"></a>"
       },
       {
         "network": "Stack Exchange",
         "username": "paul-hicks-67b9539",
-        "url": "https://stackoverflow.com/users/3195526/paul-hicks"
+        "url": "https://stackoverflow.com/users/3195526/paul-hicks",
+        "html": "<a href=\"https://stackexchange.com/users/2774190\"><img src=\"https://stackexchange.com/users/flair/2774190.png\" width=\"208\" height=\"58\" alt=\"profile for Paul Hicks on Stack Exchange, a network of free, community-driven Q&amp;A sites\" title=\"profile for Paul Hicks on Stack Exchange, a network of free, community-driven Q&amp;A sites\"></a>"
       }
     ]
   },
@@ -39,18 +42,28 @@
       "position": "Developer Practices Consultant",
       "url": "https://sentify.co",
       "startDate": "2013-12-01",
-      "endDate": "present",
-      "summary": "",
-      "highlights": []
+      "summary": "Consultant working with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
+      "highlights": [
+        "Championed development and test practices including virtualisation, containerisation, CI/CD and test automation.",
+        "Coached and mentored development teams to improve their development practices, especially in test-first development, agile practices and build and test automation.",
+        "Took on many of the internal system administration and application internal administration activities, becoming very familiar with Atlassian, Entra/Azure AD, and a range of other tools and services."
+      ]
     },
     {
       "name": "EDMI (formerly Energy Intellect)",
-      "position": "Test Lead",
+      "position": "Software Developers and Test Lead",
       "url": "https://www.edmi-meters.com/",
       "startDate": "2011-05-01",
       "endDate": "2013-11-31",
-      "summary": "",
-      "highlights": []
+      "summary": "Developed a range of test frameworks and harnesses, and maintained all test suites for the iE2 product range, including iBO (entity and market management web application) and Clariti (data presentation web application).",
+      "highlights": [
+        "Lead the adoption of Docker and containerisation for scaling of testing in the iE2 product range.",
+        "Developed end-to-end tests using RobotFramework and Selenium WebDriver for the iBO and Clariti web applications.",
+        "Maintained and enhanced the Jenkins pipelines for the iE2 product range, including build, test and deployment pipelines.",
+        "Automated the test and release processes, cutting the release cycle from 12 months to 2 weeks.",
+        "Mentored all technical testers and junior developers in the team, and provided guidance on test automation and development practices.",
+        "Resumed work on the iBO and Clariti web applications."
+      ]
     },
     {
       "name": "IBM",
@@ -58,8 +71,11 @@
       "url": "https://www.ibm.com/",
       "startDate": "2010-07-01",
       "endDate": "2011-01-31",
-      "summary": "",
-      "highlights": []
+      "summary": "Lead software developer on a prototype monitoring and metering application.",
+      "highlights": [
+        "Developed the core REST API development using Java and Spring Boot.",
+        "Test-first development using JUnit and RestAssured."
+      ]
     },
     {
       "name": "Energy Intellect",
@@ -79,7 +95,7 @@
       "url": "https://www.irishtimes.com/business/us-group-pays-58m-to-buy-irish-software-technology-firm-euristix-1.157593",
       "startDate": "1995-07-01",
       "endDate": "2002-09-01",
-      "summary": "Consultant network and telecomms software developer",
+      "summary": "Lead consultant network and telecomms software developer",
       "highlights": [
         "Progressed from software developer to lead software developer in a fast growing software company specialising in telecommunications software and embedded operating systems. Worked on a wide range of projects and languages, for clients across Europe and the United States.",
         "Lead development on a SNMP MIB-2 browser (Java)",
@@ -88,6 +104,17 @@
     }
   ],
   "projects": [
+    {
+      "name": "Developer Practices Consultant",
+      "description": "I work with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
+      "startDate": "2013-12-01",
+      "url": "https://www.sentify.co/services",
+      "highlights": [
+        "I have worked with a wide range of clients across a variety of industries, including finance, telecommunications, energy and government.",
+        "I have helped clients to improve their software development practices, including implementing CI/CD pipelines, improving testing practices, and enhancing software design and architecture.",
+        "I have also helped clients to improve their cloud infrastructure, including implementing Infrastructure as Code and improving security, observability and cost effectiveness."
+      ]
+    },
     {
       "name": "Managed Services Team Lead",
       "description": "I lead the joint development, operations and support team managing the cloud-hosted applications for our client.",
@@ -102,16 +129,7 @@
       ]
     },
     {
-      "name": "Developer Practices Consultant",
-      "description": "I work with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
-      "startDate": "2013-12-01",
-      "endDate": "present",
-      "url": "https://www.sentify.co/services",
-      "highlights": [
-        "I have worked with a wide range of clients across a variety of industries, including finance, telecommunications, energy and government.",
-        "I have helped clients to improve their software development practices, including implementing CI/CD pipelines, improving testing practices, and enhancing software design and architecture.",
-        "I have also helped clients to improve their cloud infrastructure, including implementing Infrastructure as Code and improving security, observability and cost effectiveness."
-      ]
+      
     }
   ],
   "volunteer": [],
@@ -226,7 +244,7 @@
     },
     {
       "name": "Hugh Fitzpatrick",
-      "reference": "Paul is a first rate Innovator.  He is an expert at providing effective, \r\n innovative and timely solutions to very complex problems.\r\n\r\n He is un-phased by challenges, and surpasses expectation. His\r\n knowledge of Computer Science and Engineering is vast and \r\n impressive.\r\n\r\n Paul's contributions and merit are extremely valuable !!!"
+      "reference": "Paul is a first rate Innovator.  He is an expert at providing effective, innovative and timely solutions to very complex problems. He is un-phased by challenges, and surpasses expectation. His knowledge of Computer Science and Engineering is vast and impressive. Paul's contributions and merit are extremely valuable !!!"
     }
   ],
   "meta": {
