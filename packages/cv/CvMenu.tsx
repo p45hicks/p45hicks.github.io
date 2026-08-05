@@ -90,7 +90,7 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
 
   sections.push({
     id: 'basic-info',
-    title: 'Basic Info',
+    title: 'Profile',
     menu: (
       <div>
         <div className='cv-menu-label'>{resume.basics?.name ?? 'Basic Info'}</div>
