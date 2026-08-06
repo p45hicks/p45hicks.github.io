@@ -44,14 +44,14 @@
       "startDate": "2013-12-01",
       "summary": "Consultant working with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
       "highlights": [
-        "Championed development and test practices including virtualisation, containerisation, CI/CD and test automation.",
+        "Championed development and test practices including virtualisation, containerisation, infrastructure as code and test automation.",
         "Coached and mentored development teams to improve their development practices, especially in test-first development, agile practices and build and test automation.",
         "Took on many of the internal system administration and application internal administration activities, becoming very familiar with Atlassian, Entra/Azure AD, and a range of other tools and services."
       ]
     },
     {
       "name": "EDMI (formerly Energy Intellect)",
-      "position": "Software Developers and Test Lead",
+      "position": "Software Developer and Test Lead",
       "url": "https://www.edmi-meters.com/",
       "startDate": "2011-05-01",
       "endDate": "2013-11-31",
@@ -117,6 +117,8 @@
     },
     {
       "name": "Managed Services Team Lead",
+      "entity": "GSFA",
+      "type": "Development, Operations and Support",
       "description": "I lead the joint development, operations and support team managing the cloud-hosted applications for our client.",
       "startDate": "2022-01-01",
       "endDate": "2025-12-01",
@@ -127,9 +129,6 @@
         "Introducing new tools and technologies to teams to simplify and streamline development and deployment practices.",
         "Embedding a successful DevOps culture in the team, enabling me to step back and assume a Product Owner role."
       ]
-    },
-    {
-      
     }
   ],
   "volunteer": [],

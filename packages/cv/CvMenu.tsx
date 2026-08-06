@@ -1,7 +1,12 @@
-import { useMemo, useState, type JSX } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 
-import type { ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema, ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema, ResumeSchema, ResumeSkillSchema, ResumeWorkSchema, } from '.';
+import {
+  ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema,
+  ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema,
+  ResumeSchema, ResumeSkillSchema, ResumeWorkSchema
+} from '.';
 import { ResumeProvider, useResume } from './resumeHooks';
+import { Chrono, TimelineItem, type TimelineProps } from 'react-chrono';
 
 
 interface CvMenuSection {
@@ -10,6 +15,25 @@ interface CvMenuSection {
   menu: JSX.Element;
   content: JSX.Element;
 }
+
+const CV_CHRONO_THEME: TimelineProps['theme'] = {
+  primary: 'var(--cv-accent)',
+  secondary: 'var(--cv-accent-strong)',
+  timelineBgColor: 'var(--cv-surface)',
+  textColor: 'var(--cv-text)',
+  titleColor: 'var(--cv-text-muted)',
+  titleColorActive: 'var(--cv-text)',
+  cardBgColor: 'var(--cv-surface)',
+  cardDetailsBackGround: 'var(--cv-surface)',
+  cardDetailsColor: 'var(--cv-text)',
+  cardTitleColor: 'var(--cv-text)',
+  cardSubtitleColor: 'var(--cv-text-muted)',
+  detailsColor: 'var(--cv-text)',
+  toolbarBgColor: 'var(--cv-surface-muted)',
+  toolbarTextColor: 'var(--cv-text)',
+  toolbarBtnBgColor: 'var(--cv-surface-active)',
+  shadowColor: 'var(--cv-border)'
+};
 
 export function CvMenu({ cv }: { cv: ResumeSchema }): JSX.Element {
   return (
@@ -21,7 +45,8 @@ export function CvMenu({ cv }: { cv: ResumeSchema }): JSX.Element {
 
 function CvMenuContent(): JSX.Element {
   const resume = useResume();
-  const sections = useMemo(() => buildCvMenuSections(resume), [resume]);
+  const isDesktopTimeline = useIsDesktopTimeline();
+  const sections = useMemo(() => buildCvMenuSections(resume, isDesktopTimeline), [resume, isDesktopTimeline]);
   const [activeSectionId, setActiveSectionId] = useState<string>(sections[0]?.id ?? '');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -77,15 +102,39 @@ function CvMenuContent(): JSX.Element {
 
       <main className='cv-content-panel'>
         <h2 className='text-2xl font-bold mb-4'>{activeSection.title}</h2>
-        <div className='cv-stack'>
-          {activeSection.content}
-        </div>
+        <div className='cv-stack'>{activeSection.content}</div>
       </main>
     </div>
   );
 }
 
-function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
+const DESKTOP_TIMELINE_MEDIA_QUERY = '(min-width: 768px)';
+
+function useIsDesktopTimeline(): boolean {
+  const [isDesktopTimeline, setIsDesktopTimeline] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return;
+    }
+
+    const mediaQueryList = window.matchMedia(DESKTOP_TIMELINE_MEDIA_QUERY);
+    const onMediaQueryChange = (): void => {
+      setIsDesktopTimeline(mediaQueryList.matches);
+    };
+
+    onMediaQueryChange();
+    mediaQueryList.addEventListener('change', onMediaQueryChange);
+
+    return () => {
+      mediaQueryList.removeEventListener('change', onMediaQueryChange);
+    };
+  }, []);
+
+  return isDesktopTimeline;
+}
+
+function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): CvMenuSection[] {
   const sections: CvMenuSection[] = [];
 
   sections.push({
@@ -128,64 +177,55 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
     )
   });
 
+  const timelineEntries: TimelineItem[] = [];
   if (resume.work && resume.work.length > 0) {
-    const careerDuration = getCareerDuration(resume.work);
+    timelineEntries.push(...resume.work.map((work) => displayWorkDetails(work)));
+  }
+
+  if (resume.projects && resume.projects.length > 0) {
+    timelineEntries.push(...resume.projects.map((project) => displayProjectDetails(project)));
+  }
+
+  if (timelineEntries.length > 0) {
+    const careerDuration = getDuration(timelineEntries);
     sections.push({
-      id: 'experience',
-      title: 'Experience',
+      id: 'timeline',
+      title: 'Timeline',
       menu: (
         <div>
-          <div className='cv-menu-label'>Experience</div>
+          <div className='cv-menu-label'>Timeline</div>
           <div className='cv-meta'>{careerDuration} years</div>
         </div>
       ),
       content: (
-        <div className='cv-stack-loose'>
-          {resume.work.map((work: ResumeWorkSchema, index: number) => (
-            <div key={`work-menu-${index}`}>
-              <a href={work.url}>{work.name}</a>
-              <div>{work.position}</div>
-              <div className='text-sm'><em>{formatYear(work.startDate)} - {formatYear(work.endDate)}</em></div>
-              <div>{work.summary}</div>
-              <ul className='list-disc list-inside'>
-                {work.highlights?.map((highlight: string, highlightIndex: number) => (
-                  <li key={`work-menu-${index}-highlight-${highlightIndex}`}>{highlight}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )
-    });
-  }
-
-  if (resume.projects && resume.projects.length > 0) {
-    sections.push({
-      id: 'projects',
-      title: 'Projects',
-      menu: (
-        <div>
-          <div className='cv-menu-label'>Projects</div>
-          <div className='cv-meta'>{resume.projects.length} entries</div>
-        </div>
-      ),
-      content: (
-        <div className='cv-stack-loose'>
-          {resume.projects.map((project: ResumeProjectSchema, index: number) => (
-            <div key={`project-menu-${index}`}>
-              <a href={project.url}>{project.name}</a>
-              <div>{formatYear(project.startDate)} - {formatYear(project.endDate)}</div>
-              <div>{project.description}</div>
-              <ul className='list-disc list-inside'>
-                {project.roles?.map((role: string, roleIndex: number) => (
-                  <li key={`project-menu-${index}-${role}-${roleIndex}`}>{role}</li>
-                ))}
-              </ul>
-              {project.highlights?.map((highlight: string, highlightIndex: number) => (
-                <div key={`project-menu-${index}-highlight-${highlightIndex}`}>{highlight}</div>
-              ))}
-            </div>
-          ))}
+        <div className='cv-timeline-wrap'>
+          <div className='cv-timeline'>
+            <Chrono
+              mode={isDesktopTimeline ? 'alternating' : 'vertical'}
+              theme={CV_CHRONO_THEME}
+              darkMode={{
+                enabled: false,
+                showToggle: false
+              }}
+              display={{
+                toolbar: {
+                  enabled: false
+                }
+              }}
+              content={{
+                semanticTags: {
+                  title: 'span',
+                  subtitle: 'span'
+                }
+              }}
+              style={{
+                classNames: {
+                  title: 'cv-chrono-title'
+                }
+              }}
+              items={timelineEntries.toSorted((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())}
+            />
+          </div>
         </div>
       )
     });
@@ -319,7 +359,7 @@ function buildCvMenuSections(resume: ResumeSchema): CvMenuSection[] {
 const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
 function formatYear(dateString?: string): string {
   if (dateString === undefined) {
-    return '';
+    return 'present';
   }
   const date = new Date(dateString);
   if (isNaN(date.getTime())) {
@@ -339,10 +379,47 @@ function formatYear(dateString?: string): string {
   return date.toLocaleDateString(undefined, yearOnly);
 }
 
-function getCareerDuration(work: ResumeWorkSchema[]): number {
+function getDuration(timeline: TimelineItem[]): number {
   const thisYear = new Date().getFullYear();
-  const jobStartYears = work.map((job) => job.startDate ? new Date(job.startDate).getFullYear() : thisYear);
-  const earliestYear = jobStartYears.reduce((earliestYear, currentYearToCheck) => (currentYearToCheck < earliestYear) ? currentYearToCheck : earliestYear);
+  const startYears = timeline.map((period) => period.date ? new Date(period.date).getFullYear() : thisYear);
+  const earliestYear = startYears.reduce((earliestYear, currentYearToCheck) => (currentYearToCheck < earliestYear) ? currentYearToCheck : earliestYear);
   const careerDuration = thisYear - earliestYear;
   return careerDuration;
 }
+
+function displayWorkDetails(work: ResumeWorkSchema): TimelineItem {
+  return {
+    title: `${formatYear(work.startDate)} - ${formatYear(work.endDate)}`,
+    date: work.startDate,
+    cardTitle: `${work.position ?? 'UNSPECIFIED'} at ${work.name ?? 'UNSPECIFIED EMPLOYER'}`,
+    cardSubtitle: work.summary,
+    timelineContent: (
+      <>
+        {work.description && <div>{work.name ?? 'UNSPECIFIED EMPLOYER'}{work.description && `, ${work.description}`}{work.location && `, ${work.location}`}</div>}
+      </>
+    ),
+    hasNestedItems: work.highlights && work.highlights.length > 0,
+    items: work.highlights?.map((highlight: string) => ({
+      cardDetailedText: highlight
+    })) ?? []
+  };
+}
+
+function displayProjectDetails(project: ResumeProjectSchema): TimelineItem {
+  return {
+    title: `${formatYear(project.startDate)} - ${formatYear(project.endDate)}`,
+    date: project.startDate,
+    cardTitle: `${project.name ?? 'UNSPECIFIED PROJECT'}`,
+    cardSubtitle: `${project.type ? (project.type.charAt(0).toUpperCase() + project.type.slice(1)) : 'Project'}${project.entity ? ' with ' + project.entity : ''}`,
+    timelineContent: (
+      <>
+        <div>{project.description && project.description}</div>
+      </>
+    ),
+    hasNestedItems: project.highlights && project.highlights.length > 0,
+    items: project.highlights?.map((highlight: string) => ({
+      cardDetailedText: highlight
+    })) ?? []
+  };
+}
+

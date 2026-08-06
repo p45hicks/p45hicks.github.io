@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "react-chrono/dist/style.css";
 @source "..";
 
 :root {
@@ -9,6 +10,10 @@
 	--cv-border: #d1d5db;
 	--cv-text: #111827;
 	--cv-text-muted: #4b5563;
+	--cv-accent: #475569;
+	--cv-accent-strong: #334155;
+	--cv-timeline-title-bg: #f3f4f6;
+	--cv-timeline-title-border: #cbd5e1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +25,10 @@
 		--cv-border: #111827;
 		--cv-text: #e5e7eb;
 		--cv-text-muted: #9ca3af;
+		--cv-accent: #94a3b8;
+		--cv-accent-strong: #64748b;
+		--cv-timeline-title-bg: #374151;
+		--cv-timeline-title-border: transparent;
 	}
 }
 
@@ -31,6 +40,10 @@
 	--cv-border: #111827;
 	--cv-text: #e5e7eb;
 	--cv-text-muted: #9ca3af;
+	--cv-accent: #94a3b8;
+	--cv-accent-strong: #64748b;
+	--cv-timeline-title-bg: #374151;
+	--cv-timeline-title-border: transparent;
 }
 
 @layer components {
@@ -46,10 +59,61 @@
 	}
 
 	.cv-content-panel {
-		@apply rounded-lg border p-6 shadow-md;
+		@apply min-w-0 rounded-lg border p-6 shadow-md;
 		background-color: var(--cv-surface);
 		border-color: var(--cv-border);
 		color: var(--cv-text);
+	}
+
+	.cv-timeline-wrap {
+		@apply min-w-0;
+	}
+
+	.cv-timeline {
+		position: relative;
+		width: 100%;
+		height: clamp(28rem, 70vh, 52rem);
+		max-width: 100%;
+		overflow: hidden;
+	}
+
+	.cv-timeline > * {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	@media (max-width: 767px) {
+		.cv-timeline {
+			height: 34rem;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.cv-timeline .cv-chrono-title,
+		.cv-timeline .timeline-item-title,
+		.cv-timeline [class*='_1m05k8t1'] {
+			background-color: var(--cv-timeline-title-bg) !important;
+			border: 0 !important;
+			color: var(--cv-text) !important;
+		}
+
+		.cv-timeline .timeline-title-section > div,
+		.cv-timeline .timeline-item-title.active,
+		.cv-timeline .mb2y38k,
+		.cv-timeline [class*='_1m05k8t2'] {
+			background-color: var(--cv-timeline-title-bg) !important;
+			border: 0 !important;
+			border-color: var(--cv-timeline-title-border) !important;
+			box-shadow: none !important;
+			color: var(--cv-text) !important;
+		}
+
+		.cv-timeline .mb2y38k::before,
+		.cv-timeline .timeline-item-title::before,
+		.cv-timeline [class*='_1m05k8t2']::before {
+			border: 0 !important;
+			box-shadow: none !important;
+		}
 	}
 
 	.cv-nav-item {
