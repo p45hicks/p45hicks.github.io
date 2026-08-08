@@ -45,6 +45,8 @@
       "summary": "Consultant working with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
       "highlights": [
         "Championed development and test practices including virtualisation, containerisation, infrastructure as code and test automation.",
+        "I have helped clients to improve their software development practices, including implementing CI/CD pipelines, improving testing practices, and enhancing software design and architecture.",
+        "I have helped clients to improve their cloud infrastructure, including implementing and testing Infrastructure as Code and improving security, observability and cost effectiveness.",
         "Coached and mentored development teams to improve their development practices, especially in test-first development, agile practices and build and test automation.",
         "Took on many of the internal system administration and application internal administration activities, becoming very familiar with Atlassian, Entra/Azure AD, and a range of other tools and services."
       ]
@@ -105,15 +107,11 @@
   ],
   "projects": [
     {
-      "name": "Developer Practices Consultant",
-      "description": "I work with clients to improve their software development practices, including CI/CD, testing, security, software design and architecture, and cloud infrastructure.",
-      "startDate": "2013-12-01",
-      "url": "https://www.sentify.co/services",
-      "highlights": [
-        "I have worked with a wide range of clients across a variety of industries, including finance, telecommunications, energy and government.",
-        "I have helped clients to improve their software development practices, including implementing CI/CD pipelines, improving testing practices, and enhancing software design and architecture.",
-        "I have also helped clients to improve their cloud infrastructure, including implementing Infrastructure as Code and improving security, observability and cost effectiveness."
-      ]
+      "name": "Consulting DevOps Architect",
+      "entity": "Sentify",
+      "type": "Development, Operations and Support",
+      "description": "I consult with Sentify's clients to advise on cultural, automation and process changes to improve their DevOps and Information Security practices.",
+      "startDate": "2024-01-01"
     },
     {
       "name": "Managed Services Team Lead",
@@ -129,6 +127,106 @@
         "Introducing new tools and technologies to teams to simplify and streamline development and deployment practices.",
         "Embedding a successful DevOps culture in the team, enabling me to step back and assume a Product Owner role."
       ]
+    },
+    {
+      "name": "DevOps and Continuuous Integration consulting",
+      "entity": "X4 Consulting, for the New Zealand Racing Board",
+      "type": "Consulting",
+      "startDate": "2019-01-16",
+      "endDate": "2019-05-01"
+    },
+    {
+      "name": "CI/CD and Infrastructure as Code development",
+      "entity": "ACC",
+      "type": "Designed and implemented CI/CD pipelines and Ansible playbooks for internal application deployment",
+      "startDate": "2018-03-01",
+      "endDate": "2018-12-23"
+    },
+    {
+      "name": "Test automation consulting",
+      "entity": "Intergen",
+      "type": "Reviewed test processes and advised on automation strategies and cost benefits",
+      "startDate": "2017-11-01",
+      "endDate": "2017-12-23"
+    },
+    {
+      "name": "Continuous Integration, Testing and Delivery consulting",
+      "entity": "Australian Department of Immigration and Border Protection",
+      "type": "Provided advisory and consulting on services on adopting Lean and Agile practices",
+      "startDate": "2017-02-01",
+      "endDate": "2017-05-30"
+    },
+    {
+      "name": "Test automation and build pipeline development and consulting",
+      "entity": "Practium, for GSFA",
+      "type": "Artchitected and implemented various test solutions in a variety of languages for a back-office application.",
+      "description": "Consulted on and implemented agile practices and build automation solutions",
+      "startDate": "2015-05-01",
+      "endDate": "2016-11-30"
+    },
+    {
+      "name": "Continuous Testing framework architecture and implementation",
+      "entity": "Contact",
+      "type": "Implemented a continuous testing framework, including test automation and test data management.",
+      "startDate": "2014-11-16",
+      "endDate": "2015-04-30"
+    },
+    {
+      "name": "Lean and Agile consulting",
+      "entity": "AMS",
+      "type": "Provided advisory and consulting on services on adopting Lean and Agile practices",
+      "startDate": "2014-11-16",
+      "endDate": "2015-04-15"
+    },
+    {
+      "name": "Service Virtualisation proof of concept",
+      "entity": "NZ Post",
+      "type": "Implementation of a service virtualisation proof of concept for testing APIs",
+      "description": "Assessed the client's existing test automation approaches and advised on where service virtualisation would add value",
+      "startDate": "2014-10-16",
+      "endDate": "2014-11-15"
+    },
+    {
+      "name": "Test Data generation",
+      "entity": "NZ Post",
+      "type": "Ruby implementation of a test data generation tool for fuzz testing APIs",
+      "startDate": "2014-09-16",
+      "endDate": "2014-10-15"
+    },
+    {
+      "name": "IBM Watson Test Architecture",
+      "entity": "Westpac",
+      "type": "Design and implementation of virtualization and test architecture for IBM Watson",
+      "startDate": "2014-06-16",
+      "endDate": "2014-09-15"
+    },
+    {
+      "name": "Delphi Service and API Testing",
+      "entity": "Sterland",
+      "type": "API test automation in Parasoft SOATest for a Delphi application",
+      "startDate": "2014-06-01",
+      "endDate": "2014-06-15"
+    },
+    {
+      "name": "SharePoint quality assurance",
+      "entity": "Office of the Auditor General",
+      "type": "Quality review of SharePoint implementation",
+      "startDate": "2014-05-12",
+      "endDate": "2014-05-31"
+    },
+    {
+      "name": "BPM Test Architect",
+      "entity": "MSD",
+      "type": "Virtualization and Test Automation",
+      "startDate": "2014-02-01",
+      "endDate": "2014-05-09"
+    },
+    {
+      "name": "Build and Test Automation consulting",
+      "entity": "Vector AMS",
+      "type": "Consulting",
+      "startDate": "2013-12-01",
+      "endDate": "2014-01-31"
     }
   ],
   "volunteer": [],

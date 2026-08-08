@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState, type JSX } from 'react';
+import { Chrono, type TimelineProps } from 'react-chrono';
 
 import {
-  ResumeAwardSchema, ResumeEducationSchema, ResumeInterestSchema,
-  ResumeProfileSchema, ResumeProjectSchema, ResumeReferenceSchema,
-  ResumeSchema, ResumeSkillSchema, ResumeWorkSchema
+  ResumeAwardSchema, ResumeInterestSchema,
+  ResumeProfileSchema, ResumeReferenceSchema,
+  ResumeSchema, ResumeSkillSchema
 } from '.';
-import { ResumeProvider, useResume } from './resumeHooks';
-import { Chrono, TimelineItem, type TimelineProps } from 'react-chrono';
 
+import { ResumeProvider, useResume } from './resumeHooks';
+import { Experience } from './Experience';
 
 interface CvMenuSection {
   id: string;
@@ -177,59 +178,49 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
     )
   });
 
-  const timelineEntries: TimelineItem[] = [];
-  if (resume.work && resume.work.length > 0) {
-    timelineEntries.push(...resume.work.map((work) => displayWorkDetails(work)));
-  }
-
-  if (resume.projects && resume.projects.length > 0) {
-    timelineEntries.push(...resume.projects.map((project) => displayProjectDetails(project)));
-  }
-
-  if (timelineEntries.length > 0) {
-    const careerDuration = getDuration(timelineEntries);
-    sections.push({
-      id: 'timeline',
-      title: 'Timeline',
-      menu: (
-        <div>
-          <div className='cv-menu-label'>Timeline</div>
-          <div className='cv-meta'>{careerDuration} years</div>
+  const experience = new Experience(resume);
+  const workExperience = [...experience.getWork(), ...experience.getProjects()].toSorted(experience.byDateDescending);
+  sections.push({
+    id: 'timeline',
+    title: 'Experience',
+    menu: (
+      <div>
+        <div className='cv-menu-label'>Experience</div>
+        <div className='cv-meta'>{Experience.duration(workExperience)} years</div>
+      </div>
+    ),
+    content: (
+      <div className='cv-timeline-wrap'>
+        <div className='cv-timeline'>
+          <Chrono
+            mode={isDesktopTimeline ? 'alternating' : 'vertical'}
+            theme={CV_CHRONO_THEME}
+            darkMode={{
+              enabled: false,
+              showToggle: false
+            }}
+            display={{
+              toolbar: {
+                enabled: false
+              }
+            }}
+            content={{
+              semanticTags: {
+                title: 'span',
+                subtitle: 'span'
+              }
+            }}
+            style={{
+              classNames: {
+                title: 'cv-chrono-title'
+              }
+            }}
+            items={workExperience}
+          />
         </div>
-      ),
-      content: (
-        <div className='cv-timeline-wrap'>
-          <div className='cv-timeline'>
-            <Chrono
-              mode={isDesktopTimeline ? 'alternating' : 'vertical'}
-              theme={CV_CHRONO_THEME}
-              darkMode={{
-                enabled: false,
-                showToggle: false
-              }}
-              display={{
-                toolbar: {
-                  enabled: false
-                }
-              }}
-              content={{
-                semanticTags: {
-                  title: 'span',
-                  subtitle: 'span'
-                }
-              }}
-              style={{
-                classNames: {
-                  title: 'cv-chrono-title'
-                }
-              }}
-              items={timelineEntries.toSorted((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime())}
-            />
-          </div>
-        </div>
-      )
-    });
-  }
+      </div>
+    )
+  });
 
   if (resume.skills && resume.skills.length > 0) {
     sections.push({
@@ -277,30 +268,46 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
     });
   }
 
-  if (resume.education && resume.education.length > 0) {
+  const education = experience.getEducation().toSorted(experience.byDateDescending);
+  if (education.length > 0) {
     sections.push({
       id: 'education',
       title: 'Education',
       menu: (
         <div>
           <div className='cv-menu-label'>Education</div>
-          <div className='cv-meta'>{resume.education.length} entries</div>
+          <div className='cv-meta'>{education.length} course{education.length !== 1 ? 's' : ''} over {Experience.duration(education, new Date(resume.education![0].endDate!))} years</div>
         </div>
       ),
       content: (
-        <div className='cv-stack-loose'>
-          {resume.education.map((edu: ResumeEducationSchema, index: number) => (
-            <div key={`education-menu-${index}`}>
-              <a href={edu.url}>{edu.studyType} {edu.area && `(${edu.area})`} at {edu.institution}</a>
-              <div className='text-sm'><em>{formatYear(edu.startDate)} - {formatYear(edu.endDate)}</em></div>
-              <div><em>{edu.score}</em></div>
-              <ul className='text-sm list-disc list-inside'>
-                {edu.courses?.map((course: string, courseIndex: number) => (
-                  <li key={`education-menu-${index}-course-${courseIndex}`}>{course}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className='cv-timeline-wrap'>
+          <div className='cv-timeline'>
+            <Chrono
+              mode={isDesktopTimeline ? 'alternating' : 'vertical'}
+              theme={CV_CHRONO_THEME}
+              darkMode={{
+                enabled: false,
+                showToggle: false
+              }}
+              display={{
+                toolbar: {
+                  enabled: false
+                }
+              }}
+              content={{
+                semanticTags: {
+                  title: 'span',
+                  subtitle: 'span'
+                }
+              }}
+              style={{
+                classNames: {
+                  title: 'cv-chrono-title'
+                }
+              }}
+              items={education}
+            />
+          </div>
         </div>
       )
     });
@@ -330,6 +337,7 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
   }
 
   if (resume.awards && resume.awards.length > 0) {
+    const awards = experience.getAwards().toSorted(experience.byDateDescending);
     sections.push({
       id: 'awards',
       title: 'Awards',
@@ -340,86 +348,39 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
         </div>
       ),
       content: (
-        <div className='cv-stack'>
-          {resume.awards.map((award: ResumeAwardSchema, index: number) => (
-            <div key={`award-menu-${index}`}>
-              <p>{award.title} from {award.awarder}</p>
-              <p><em>{formatYear(award.date)}</em></p>
-              <p>{award.summary}</p>
-            </div>
-          ))}
+        <div className='cv-timeline-wrap'>
+          <div className='cv-timeline'>
+            <Chrono
+              mode={isDesktopTimeline ? 'alternating' : 'vertical'}
+              theme={CV_CHRONO_THEME}
+              darkMode={{
+                enabled: false,
+                showToggle: false
+              }}
+              display={{
+                toolbar: {
+                  enabled: false
+                }
+              }}
+              content={{
+                semanticTags: {
+                  title: 'span',
+                  subtitle: 'span'
+                }
+              }}
+              style={{
+                classNames: {
+                  title: 'cv-chrono-title'
+                }
+              }}
+              items={awards}
+            />
+          </div>
         </div>
       )
     });
   }
 
   return sections;
-}
-
-const yearOnly: Intl.DateTimeFormatOptions = { year: 'numeric' };
-function formatYear(dateString?: string): string {
-  if (dateString === undefined) {
-    return 'present';
-  }
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
-    // The standard states that if a date string is invalid,
-    // the Date constructor should return an "Invalid Date" object,
-    // which has a getTime() method that returns NaN.
-    // If this happens, we just return the original string.
-    // A reasonable use cases for this:
-    // - if the date string is just a year, e.g. "2020",
-    //    which is valid according to the schema but not a valid
-    //    date string for the Date constructor. 
-    // - if the date string is "now" or "present", which are commonly
-    //   used in resumes to indicate current employment, but are not
-    //   valid date strings for the Date constructor.
-    return dateString;
-  }
-  return date.toLocaleDateString(undefined, yearOnly);
-}
-
-function getDuration(timeline: TimelineItem[]): number {
-  const thisYear = new Date().getFullYear();
-  const startYears = timeline.map((period) => period.date ? new Date(period.date).getFullYear() : thisYear);
-  const earliestYear = startYears.reduce((earliestYear, currentYearToCheck) => (currentYearToCheck < earliestYear) ? currentYearToCheck : earliestYear);
-  const careerDuration = thisYear - earliestYear;
-  return careerDuration;
-}
-
-function displayWorkDetails(work: ResumeWorkSchema): TimelineItem {
-  return {
-    title: `${formatYear(work.startDate)} - ${formatYear(work.endDate)}`,
-    date: work.startDate,
-    cardTitle: `${work.position ?? 'UNSPECIFIED'} at ${work.name ?? 'UNSPECIFIED EMPLOYER'}`,
-    cardSubtitle: work.summary,
-    timelineContent: (
-      <>
-        {work.description && <div>{work.name ?? 'UNSPECIFIED EMPLOYER'}{work.description && `, ${work.description}`}{work.location && `, ${work.location}`}</div>}
-      </>
-    ),
-    hasNestedItems: work.highlights && work.highlights.length > 0,
-    items: work.highlights?.map((highlight: string) => ({
-      cardDetailedText: highlight
-    })) ?? []
-  };
-}
-
-function displayProjectDetails(project: ResumeProjectSchema): TimelineItem {
-  return {
-    title: `${formatYear(project.startDate)} - ${formatYear(project.endDate)}`,
-    date: project.startDate,
-    cardTitle: `${project.name ?? 'UNSPECIFIED PROJECT'}`,
-    cardSubtitle: `${project.type ? (project.type.charAt(0).toUpperCase() + project.type.slice(1)) : 'Project'}${project.entity ? ' with ' + project.entity : ''}`,
-    timelineContent: (
-      <>
-        <div>{project.description && project.description}</div>
-      </>
-    ),
-    hasNestedItems: project.highlights && project.highlights.length > 0,
-    items: project.highlights?.map((highlight: string) => ({
-      cardDetailedText: highlight
-    })) ?? []
-  };
 }
 
