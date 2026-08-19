@@ -1,6 +1,13 @@
 import type { JSX } from 'react';
 import { Chrono, type TimelineProps } from 'react-chrono';
 
+/**
+ * Shared CV timeline renderer.
+ *
+ * This is intentionally the single place where react-chrono is configured for CV timelines,
+ * including theme, display behavior, semantic tags, and responsive mode selection.
+ */
+
 const CV_CHRONO_THEME: TimelineProps['theme'] = {
   primary: 'var(--cv-accent)',
   secondary: 'var(--cv-accent-strong)',

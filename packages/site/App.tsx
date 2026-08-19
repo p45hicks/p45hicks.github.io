@@ -1,31 +1,33 @@
-import { useMemo, type JSX } from 'react';
+import type { JSX } from 'react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import { useCvMenuContributions } from '@p45hicks/cv/CvMenu';
-import { createAboutModuleSection } from './aboutModule';
+/**
+ * Shared app shell.
+ *
+ * Responsibility: render navigation and routes for already-composed section
+ * contributions. This component is intentionally feature-agnostic.
+ */
 
-import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
-import resumeJson from './resume.json';
-const cv: ResumeSchema = resumeJson as ResumeSchema;
+export interface AppSection {
+  id: string;
+  path: string;
+  title: string;
+  menu: JSX.Element;
+  content: JSX.Element;
+}
 
-export default function App(): JSX.Element {
-  const cvSections = useCvMenuContributions(cv);
-  const aboutSection = createAboutModuleSection(cv.basics?.name);
-
-  const appSections = useMemo(
-    () => [
-      ...cvSections,
-      aboutSection
-    ],
-    [aboutSection, cvSections]
-  );
-
-  const defaultPath = appSections[0]?.path ?? '/about';
+/**
+ * Render the top-level navigation and route layout for contributed sections.
+ *
+ * Use this when module composition has already happened in a parent component.
+ */
+export default function App({ sections }: { sections: AppSection[] }): JSX.Element {
+  const defaultPath = sections[0]?.path ?? '/about';
 
   return (
     <div className='cv-shell'>
       <aside className='md:sticky md:top-4 h-fit'>
         <nav aria-label='App sections' className='cv-nav-panel'>
-          {appSections.map((section) => (
+          {sections.map((section) => (
             <NavLink
               key={section.id}
               to={section.path}
@@ -39,7 +41,7 @@ export default function App(): JSX.Element {
 
       <main className='cv-content-panel'>
         <Routes>
-          {appSections.map((section) => (
+          {sections.map((section) => (
             <Route
               key={section.id}
               path={section.path}

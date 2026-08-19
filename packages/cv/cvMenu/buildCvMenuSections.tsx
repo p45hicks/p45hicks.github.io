@@ -13,9 +13,43 @@ import { CvTimeline } from './CvTimeline';
 import type { CvMenuSection } from './types';
 
 export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): CvMenuSection[] {
-  const sections: CvMenuSection[] = [];
+  const experience = new Experience(resume);
+  const awards = experience.getAwards().toSorted(Experience.byDateDescending);
 
-  sections.push({
+  const sections: CvMenuSection[] = [];
+  sections.push(buildProfileSection(resume));
+  sections.push(buildExperienceSection(experience.getWork(), experience.getProjects(), isDesktopTimeline));
+
+  const skillsSection = buildSkillsSection(resume);
+  if (skillsSection) {
+    sections.push(skillsSection);
+  }
+
+  const interestsSection = buildInterestsSection(resume);
+  if (interestsSection) {
+    sections.push(interestsSection);
+  }
+
+  const educationSection = buildEducationSection(resume, experience.getEducation(), isDesktopTimeline);
+  if (educationSection) {
+    sections.push(educationSection);
+  }
+
+  const referencesSection = buildReferencesSection(resume);
+  if (referencesSection) {
+    sections.push(referencesSection);
+  }
+
+  const awardsSection = buildAwardsSection(resume, awards, isDesktopTimeline);
+  if (awardsSection) {
+    sections.push(awardsSection);
+  }
+
+  return sections;
+}
+
+function buildProfileSection(resume: ResumeSchema): CvMenuSection {
+  return {
     id: 'profile',
     title: 'Profile',
     menu: (
@@ -53,24 +87,32 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
         )}
       </div>
     )
-  });
+  };
+}
 
-  const experience = new Experience(resume);
-  const workExperience = [...experience.getWork(), ...experience.getProjects()].toSorted(experience.byDateDescending);
-  sections.push({
+function buildExperienceSection(
+  work: ReturnType<Experience['getWork']>,
+  projects: ReturnType<Experience['getProjects']>,
+  isDesktopTimeline: boolean
+): CvMenuSection {
+  const workExperience = [...work, ...projects].toSorted(Experience.byDateDescending);
+
+  return {
     id: 'experience',
     title: 'Experience',
     menu: (
       <CvSectionMenuSummary
         label='Experience'
-        meta={`${experience.getWork().length} positions over ${Experience.duration(workExperience)} years`}
+        meta={`${work.length} positions over ${Experience.duration(workExperience)} years`}
       />
     ),
     content: <CvTimeline items={workExperience} isDesktopTimeline={isDesktopTimeline} />
-  });
+  };
+}
 
+function buildSkillsSection(resume: ResumeSchema): CvMenuSection | null {
   if (resume.skills && resume.skills.length > 0) {
-    sections.push({
+    return {
       id: 'skills',
       title: 'Skills',
       menu: (
@@ -89,11 +131,15 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
           ))}
         </div>
       )
-    });
+    };
   }
 
+  return null;
+}
+
+function buildInterestsSection(resume: ResumeSchema): CvMenuSection | null {
   if (resume.interests && resume.interests.length > 0) {
-    sections.push({
+    return {
       id: 'interests',
       title: 'Interests',
       menu: (
@@ -112,18 +158,37 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
           ))}
         </div>
       )
-    });
+    };
   }
 
-  const education = experience.getEducation().toSorted(experience.byDateDescending);
-  if (education.length > 0) {
-    const educationEndDate = resume.education?.[0]?.endDate;
-    const educationYears = Experience.duration(
-      education,
-      educationEndDate ? new Date(educationEndDate) : undefined
-    );
+  return null;
+}
 
-    sections.push({
+function buildEducationSection(
+  resume: ResumeSchema,
+  education: ReturnType<Experience['getEducation']>,
+  isDesktopTimeline: boolean
+): CvMenuSection | null {
+  if (education.length > 0) {
+    // Hideous map/reduce to handle JSON Resume schema's optional endDate field,
+    // which may be undefined or an invalid date string.
+    // We want to find the latest valid endDate, if any.
+    const educationEndDate = resume.education
+      ?.map((entry) => entry.endDate)
+      .filter((value): value is string => Boolean(value))
+      .map((value) => new Date(value))
+      .filter((value) => !Number.isNaN(value.getTime()))
+      .reduce<Date | undefined>((latest, current) => {
+        if (!latest) {
+          return current;
+        }
+
+        return current.getTime() > latest.getTime() ? current : latest;
+      }, undefined);
+
+    const educationYears = Experience.duration(education, educationEndDate);
+
+    return {
       id: 'education',
       title: 'Education',
       menu: (
@@ -133,11 +198,15 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
         />
       ),
       content: <CvTimeline items={education} isDesktopTimeline={isDesktopTimeline} />
-    });
+    };
   }
 
+  return null;
+}
+
+function buildReferencesSection(resume: ResumeSchema): CvMenuSection | null {
   if (resume.references && resume.references.length > 0) {
-    sections.push({
+    return {
       id: 'references',
       title: 'References',
       menu: (
@@ -156,12 +225,19 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
           ))}
         </div>
       )
-    });
+    };
   }
 
+  return null;
+}
+
+function buildAwardsSection(
+  resume: ResumeSchema,
+  awards: ReturnType<Experience['getAwards']>,
+  isDesktopTimeline: boolean
+): CvMenuSection | null {
   if (resume.awards && resume.awards.length > 0) {
-    const awards = experience.getAwards().toSorted(experience.byDateDescending);
-    sections.push({
+    return {
       id: 'awards',
       title: 'Awards',
       menu: (
@@ -171,8 +247,8 @@ export function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boo
         />
       ),
       content: <CvTimeline items={awards} isDesktopTimeline={isDesktopTimeline} />
-    });
+    };
   }
 
-  return sections;
+  return null;
 }

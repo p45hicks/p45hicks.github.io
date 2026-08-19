@@ -32,7 +32,7 @@ export class Experience {
     return this.resume.volunteer?.map((volunteer) => this.getVolunteeringDetails(volunteer)) ?? [];
   }
 
-  public byDateDescending(a: TimelineItem, b: TimelineItem): number {
+  public static byDateDescending(a: TimelineItem, b: TimelineItem): number {
     return new Date(b.date!).getTime() - new Date(a.date!).getTime();
   }
 
