@@ -1,0 +1,11 @@
+{
+  "name": "@p45hicks/test-cv",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test": "bun test --watchAll=false",
+    "test:watch": "bun test --watchAll"
+  }
+}

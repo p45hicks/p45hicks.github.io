@@ -33,7 +33,6 @@
     // "noImplicitOverride": true,
     // "esModuleInterop": true,
   },
-  "include": [],
   "exclude": [
     "**/node_modules",
     "**/dist"
