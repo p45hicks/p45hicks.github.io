@@ -7,7 +7,5 @@
     "lint:fix": "eslint --fix",
     "test": "bun test --watchAll=false",
     "test:watch": "bun test --watchAll"
-  },
-  "devDependencies": {
   }
 }

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type JSX } from 'react';
 import { Chrono, type TimelineProps } from 'react-chrono';
 
 import {
-  ResumeAwardSchema, ResumeInterestSchema,
+  ResumeInterestSchema,
   ResumeProfileSchema, ResumeReferenceSchema,
   ResumeSchema, ResumeSkillSchema
 } from '.';
@@ -15,6 +15,10 @@ interface CvMenuSection {
   title: string;
   menu: JSX.Element;
   content: JSX.Element;
+}
+
+export interface CvMenuContribution extends CvMenuSection {
+  path: string;
 }
 
 const CV_CHRONO_THEME: TimelineProps['theme'] = {
@@ -41,6 +45,19 @@ export function CvMenu({ cv }: { cv: ResumeSchema }): JSX.Element {
     <ResumeProvider resume={cv}>
       <CvMenuContent />
     </ResumeProvider>
+  );
+}
+
+export function useCvMenuContributions(cv: ResumeSchema): CvMenuContribution[] {
+  const isDesktopTimeline = useIsDesktopTimeline();
+  const sections = useMemo(() => buildCvMenuSections(cv, isDesktopTimeline), [cv, isDesktopTimeline]);
+
+  return useMemo(
+    () => sections.map((section) => ({
+      ...section,
+      path: `/${section.id}`
+    })),
+    [sections]
   );
 }
 
@@ -139,7 +156,7 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
   const sections: CvMenuSection[] = [];
 
   sections.push({
-    id: 'basic-info',
+    id: 'profile',
     title: 'Profile',
     menu: (
       <div>
@@ -181,7 +198,7 @@ function buildCvMenuSections(resume: ResumeSchema, isDesktopTimeline: boolean): 
   const experience = new Experience(resume);
   const workExperience = [...experience.getWork(), ...experience.getProjects()].toSorted(experience.byDateDescending);
   sections.push({
-    id: 'timeline',
+    id: 'experience',
     title: 'Experience',
     menu: (
       <div>

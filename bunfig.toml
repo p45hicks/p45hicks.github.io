@@ -3,12 +3,15 @@ linker = "hoisted"
 [workspace]
 members = [
   "packages/site",
-  "packages/test"
+  "packages/cv",
+  "packages/undeploy",
+  "test/site",
+  "test/cv"
 ]
 [test]
-root = "./packages/test"
+root = "./test"
 preload = [
-  "./packages/test/site/happydom.ts",
-  "./packages/test/site/testing-library.ts",
-  "./packages/test/site/bun-test.d.ts"
+  "./test/setup/happydom.ts",
+  "./test/setup/testing-library.ts",
+  "./test/setup/bun-test.d.ts"
 ]
