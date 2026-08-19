@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import App, { type AppSection } from '@p45hicks/site/App';
@@ -41,5 +41,40 @@ describe('App', () => {
     )
 
     expect(screen.getByRole('heading', { name: /About/i })).toBeInTheDocument();
+  })
+
+  it('starts with mobile menu collapsed', () => {
+    render(
+      <MemoryRouter initialEntries={['/about']}>
+        <App sections={aboutSections} />
+      </MemoryRouter>
+    )
+
+    const trigger = screen.getByRole('button', { expanded: false });
+    const items = screen.getByRole('navigation', { name: /app sections/i }).querySelector('#app-mobile-menu-items');
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(items).not.toBeNull();
+    expect(items as HTMLElement).toHaveAttribute('data-mobile-state', 'closed');
+  })
+
+  it('opens and then closes mobile menu via trigger and selection', () => {
+    render(
+      <MemoryRouter initialEntries={['/about']}>
+        <App sections={aboutSections} />
+      </MemoryRouter>
+    )
+
+    const trigger = screen.getByRole('button', { expanded: false });
+    const items = screen.getByRole('navigation', { name: /app sections/i }).querySelector('#app-mobile-menu-items') as HTMLElement;
+
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(items).toHaveAttribute('data-mobile-state', 'open');
+
+    const aboutLink = screen.getByRole('link', { name: /about/i });
+    fireEvent.click(aboutLink);
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(items).toHaveAttribute('data-mobile-state', 'closed');
   })
 })
